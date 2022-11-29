@@ -1,0 +1,116 @@
+.FontPink {
+color: pink;
+}
+
+.CardProduct {
+background: #272323;
+color: #fff;
+}
+
+.JarakAtas {
+margin-top: 20px;
+}
+
+.JarakBawahHP {
+margin-bottom: 70px;
+}
+
+.CardPutih {
+margin-top: 20px;
+background: #fff;
+padding: 20px;
+border-radius: 30px;
+border: 12px solid black;
+}
+
+.btn-pink {
+color: #fff;
+background-color: #e45c78;
+}
+
+.bg-black {
+  background: black;
+}
+
+.Header {
+text-align: center;
+font-family: 'Odibee Sans', cursive;
+font-size: 38px;
+}
+
+.Buy{
+  text-align: center;
+  font-weight: bold;
+}
+.Buy a {
+    color: #fff;
+}
+
+
+.ProductButton {
+text-decoration: none;
+padding: 7px;
+background: black;
+color: #fff
+}
+
+.ProductButton:hover{
+text-decoration: none;
+color: #fff !important;
+}
+
+.Fontlogo {
+  font-family: 'Odibee Sans', cursive;
+  color: #e45f9d;
+  text-decoration: none;
+  font-size: 27px;
+}
+
+.Fontlogo:hover {
+  font-family: 'Odibee Sans', cursive;
+  color: white;
+  text-decoration: none;
+}
+
+.Box {
+  padding: 5px;
+  color: #fff;
+  background: #e45c78;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.ScrollDown {
+  padding-bottom: 200px;
+}
+
+/* Hero image*/
+body, html {
+    height: 100%;
+    background-color: #efa1a1;
+}
+
+/* The hero image */
+.hero-image {
+  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("image/Lidah\ Kucing\ Coklat.jpeg");
+
+  /* Set a specific height */
+  height: 100%;
+
+  /* Position and center the image to scale nicely on all screens */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
