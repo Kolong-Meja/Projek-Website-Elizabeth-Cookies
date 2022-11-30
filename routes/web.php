@@ -2,6 +2,8 @@
 
 // use App\Http\Controllers\ProfileController;
 
+use App\Http\Controllers\TestController;
+
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\ProductController;
@@ -26,6 +28,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+# route test page
+// Route::get('/user', [TestController::class, 'show_data']);
 
 # home page route
 Route::get('/', [HomeController::class, 'index']);

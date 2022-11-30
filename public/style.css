@@ -29,6 +29,14 @@ color: #fff !important;
 background-color: #e45c78;
 }
 
+#tag-name {
+  color: white;
+  position: absolute;
+  left: 34%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .btn-group-2 {
   margin-top: 10px;
   margin-left: 10px;

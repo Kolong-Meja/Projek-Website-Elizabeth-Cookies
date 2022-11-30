@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class ContactController extends Controller
 {
     function index() {
-        return view('contact');
+        $admin = DB::select('SELECT name, email, mobile FROM users');
+        return view('contact')->with('admin', $admin);
     }
 }
