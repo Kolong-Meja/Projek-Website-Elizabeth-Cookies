@@ -15,6 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap" rel="stylesheet">
   </head>
   <body>
+
+    <!-- navigation bar -->
     <nav class="navbar navbar-expand-sm bg-black">
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -26,15 +28,16 @@
       <ul class="navbar-nav ml-auto">
         <li class="Nav-edit">
           <div class="btn-group">
-            <a href="Project.html"> <button type="button" class="btn btn-pink">Home</button> </a>
-            <a href="Product.html"> <button type="button" class="btn btn-pink">Product</button> </a>
-            <a href="Contact.html"> <button type="button" class="btn btn-pink">Contact</button> </a>
-            <a href="About Us.html"> <button type="button" class="btn btn-pink">About</button> </a>
+            <a href="{{ url('/') }}"> <button type="button" class="btn btn-pink">Home</button> </a>
+            <a href="{{ url('/product') }}"> <button type="button" class="btn btn-pink">Product</button> </a>
+            <a href="{{ url('/contact') }}"> <button type="button" class="btn btn-pink">Contact</button> </a>
+            <a href="{{ url('/about') }}"> <button type="button" class="btn btn-pink">About</button> </a>
           </div>
         </li>
       </ul>
     </nav>
 
+    <!-- content of the page -->
     <div class="container CardPutih">
       <div class="container-fluid bg-grey">
         <h2 class="text-center Header">CONTACT</h2>

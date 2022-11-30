@@ -1,7 +1,15 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\ProductController;
+
+use App\Http\Controllers\ContactController;
+
+use App\Http\Controllers\AboutController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +22,19 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('/', HomeController::class);
+
+# home page route
+Route::get('/', [HomeController::class, 'index']);
+
+# product page route
+Route::resource('/product', ProductController::class);
+
+# contact page route
+Route::get('/contact', [ContactController::class, 'index']);
+
+# about page route
+Route::get('/about', [AboutController::class, 'index']);
+
 
 
 // DIPAKAI BELAKANGAN DAN JANGAN DIHAPUS!!!

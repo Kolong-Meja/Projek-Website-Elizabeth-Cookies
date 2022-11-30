@@ -26,10 +26,10 @@
       <ul class="navbar-nav ml-auto">
         <li class="Nav-edit">
           <div class="btn-group">
-            <a href="home.blade.php"> <button type="button" class="btn btn-pink">Home</button> </a>
-            <a href="./product.blade.php"> <button type="button" class="btn btn-pink">Product</button> </a>
-            <a href="Contact.html"> <button type="button" class="btn btn-pink">Contact</button> </a>
-            <a href="About Us.html"> <button type="button" class="btn btn-pink">About</button> </a>
+            <a href="{{ url('/') }}"> <button type="button" class="btn btn-pink">Home</button> </a>
+            <a href="{{ url('/product') }}"> <button type="button" class="btn btn-pink">Product</button> </a>
+            <a href="{{ url('/contact') }}"> <button type="button" class="btn btn-pink">Contact</button> </a>
+            <a href="{{ url('/about') }}"> <button type="button" class="btn btn-pink">About</button> </a>
           </div>
         </li>
       </ul>
