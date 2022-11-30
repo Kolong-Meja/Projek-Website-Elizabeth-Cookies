@@ -6,19 +6,34 @@
             <img class="img-fluid" src="image/Logo.png" alt="Logo" width="63" height="54">
         </a>
         <a class="Fontlogo" href="{{ url('/product') }}">Elisabeth Cookies</a>
-      </li>
+      <li class="Nav-edit">
         @if (Auth::guest())
             <li>
-                <a href="{{ url('login') }}">Login</a>
-            </li>
-            <li>
-                <a href="{{ url('register') }}">Register</a>
+              <li>
+                <div class="btn-group-2">
+                  <a href="{{ url('login') }}">
+                    <button type="button" class="btn btn-pink">Login</button>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div class="btn-group-2">
+                  <a href="{{ url('register') }}">
+                    <button type="button" class="btn btn-pink">Register</button>
+                  </a>
+                </div>
+              </li>
             </li>
         @else
             <li>
-                <a href="{{ url('logout')}}">Logout</a>
+              <div class="btn-group-2">
+                <a href="{{ url('logout')}}">
+                  <button type="button" class="btn btn-pink">Logout</button>
+                </a>
+              </div>
             </li>
         @endif
+      </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="Nav-edit">

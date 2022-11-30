@@ -24,8 +24,14 @@ border: 12px solid black;
 }
 
 .btn-pink {
-color: #fff;
+text-decoration: none !important;
+color: #fff !important;
 background-color: #e45c78;
+}
+
+.btn-group-2 {
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .bg-black {
