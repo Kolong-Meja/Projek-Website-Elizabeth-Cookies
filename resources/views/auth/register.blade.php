@@ -2,7 +2,7 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <img src="image/Logo.png" alt="Logo Elizabeth Cookies" class="w-30 h-30 fill-current">
             </a>
         </x-slot>
 
@@ -33,6 +33,13 @@
                                 required autocomplete="new-password" />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            </div>
+
+            <!-- Mobile Phone -->
+            <div>
+                <x-input-label for="mobile" :value="__('Mobile')" />
+                <x-text-input id="mobile" class="block mt-1 w-full" type="text" name="mobile" :value="old('mobile')" required autofocus />
+                <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
             </div>
 
             <!-- Confirm Password -->

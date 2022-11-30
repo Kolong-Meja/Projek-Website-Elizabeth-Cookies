@@ -10,6 +10,10 @@ use App\Http\Controllers\ContactController;
 
 use App\Http\Controllers\AboutController;
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
+use App\Http\Controllers\Auth\RegisteredUserController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +29,21 @@ use Illuminate\Support\Facades\Route;
 
 # home page route
 Route::get('/', [HomeController::class, 'index']);
+
+# route login page
+Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+
+# rote post login page
+Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+# route register page
+Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+
+# route post register page
+Route::post('register', [RegisteredUserController::class, 'store']);
+
+# route logout
+Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 # product page route
 Route::resource('/product', ProductController::class);
