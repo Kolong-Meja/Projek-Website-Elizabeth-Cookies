@@ -23,6 +23,15 @@ border-radius: 30px;
 border: 12px solid black;
 }
 
+a.profile-link {
+  text-decoration: none;
+  color: white;
+}
+
+a.profile-link:hover {
+  color: lightblue;
+}
+
 .btn-pink {
 text-decoration: none !important;
 color: #fff !important;
