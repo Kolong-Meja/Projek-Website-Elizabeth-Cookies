@@ -24,7 +24,7 @@
             </div>
 
              <!-- Mobile Phone -->
-             <div>
+             <div class="mt-4">
                 <x-input-label for="mobile" :value="__('Mobile')" />
                 <x-text-input id="mobile" class="block mt-1 w-full" type="text" name="mobile" :value="old('mobile')" required autofocus />
                 <x-input-error :messages="$errors->get('mobile')" class="mt-2" />

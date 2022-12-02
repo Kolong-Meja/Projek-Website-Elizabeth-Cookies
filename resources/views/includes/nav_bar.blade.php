@@ -30,6 +30,13 @@
                 <a href="{{ url('logout')}}">
                   <button type="button" class="btn btn-pink">Logout</button>
                 </a>
+              </div>
+            </li>
+            <li>
+              <div class="btn-group-2">
+                <a href="{{ url('profile')}}">
+                  <button type="button" class="btn btn-pink">Profile</button>
+                </a>
                 <p id="tag-name">Selamat Datang <a class="profile-link" href={{ url('profile') }}>{{ Auth::user()->name}}</a></p>
               </div>
             </li>
