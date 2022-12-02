@@ -27,7 +27,7 @@ class AdminController extends Controller
             return $error_report;
         }
 
-        return view('admin', ['admin' => $admin])->with('auth_admin', $auth_admin);
+        return view('admin.dashboard', ['admin' => $admin])->with('auth_admin', $auth_admin);
     }
 
     /**
@@ -37,7 +37,9 @@ class AdminController extends Controller
      */
     public function create()
     {
-        // this is for creating some data
+        // this is for creating some product data
+        $product = DB::table('products')->latest();
+        return view('admin.create', compact('product'));
     }
 
     /**

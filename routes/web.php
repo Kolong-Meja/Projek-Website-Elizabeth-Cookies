@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/user', [TestController::class, 'show_data']);
 
 # admin page route
-Route::get('/admin', [AdminController::class, 'index']);
+Route::resource('/admin', AdminController::class);
 
 # home page route
 Route::get('/', [HomeController::class, 'index']);
@@ -72,7 +72,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
