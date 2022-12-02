@@ -3,7 +3,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="icon" type="image/png" href="Logo.png">
+<link rel="icon" type="image/png" href={{ url('image/Logo.png') }}>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class AboutController extends Controller
 {
     function index() {
-        return view('about');
+        $content = DB::table('abouts')->select('content')->get();
+        return view('about')->with('content', $content);
     }
 }

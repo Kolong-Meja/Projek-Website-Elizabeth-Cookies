@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+
 use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\TestController;
@@ -31,6 +33,9 @@ use Illuminate\Support\Facades\Route;
 
 # route test page
 // Route::get('/user', [TestController::class, 'show_data']);
+
+# admin page route
+Route::get('/admin', [AdminController::class, 'index']);
 
 # home page route
 Route::get('/', [HomeController::class, 'index']);
@@ -66,14 +71,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+
 // DIPAKAI BELAKANGAN DAN JANGAN DIHAPUS!!!
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
