@@ -4,7 +4,7 @@
     @include('includes.head')
   </head>
   <body>
-    <!-- navigation bar -->
+    <!-pr- navigation bar -->
     @include('includes.nav_bar')
     
     <!-- product page content -->

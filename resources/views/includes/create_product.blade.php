@@ -1,35 +1,25 @@
-<form action="#" method="post">
+<form action={{ route('product.store')}} method="POST" enctype="multipart/form-data">
+    @csrf
     <div class="col-name">
         <label for="product-name">Product Name:</label>
-        <input type="text" name="name" required />
+        <input type="text" name="name">
     </div>
 
     <div class="col-desc">
         <label for="product-desc">Product Description:</label>
-        <textarea name="desc" id="desc" cols="30" rows="10" required></textarea>
+        <textarea name="description" id="desc" cols="30" rows="10"></textarea>
     </div>
 
     <div class="col-image">
         <label for="product-image">Product Image</label>
-        <input type="file" name="image" id="image" required />
+        <input type="file" name="image" id="image">
     </div>
 
     <div class="col-price">
         <label for="product-price">Product Price:</label>
-        <input type="text" name="price" id="price" placeholder="Rp.10.000" required />
+        <input type="text" name="price" id="price" placeholder="Rp.10.000">
     </div>
 
-    <div class="flex items-center gap-4">
-        <x-primary-button>{{ __('Create') }}</x-primary-button>
-
-        @if (session('status') === 'product-created')
-            <p
-                x-data="{ show: true }"
-                x-show="show"
-                x-transition
-                x-init="setTimeout(() => show = false, 2000)"
-                class="text-sm text-black-600 dark:text-gray-400"
-            >{{ __('Saved.') }}</p>
-        @endif
-    </div>
+   <button type="submit" class="btn btn-md btn-primary">Submit</button>
+   <button type="reset" class="btn btn-md btn-warning">Reset</button>
 </form>

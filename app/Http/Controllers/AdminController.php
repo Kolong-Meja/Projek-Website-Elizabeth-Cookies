@@ -50,7 +50,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        // this is for storing all data to database
+        // this is for storing all product data to database
     }
 
     /**
