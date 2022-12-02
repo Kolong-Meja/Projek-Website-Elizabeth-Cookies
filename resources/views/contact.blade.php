@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col-sm-5">
             @foreach($admin as $a)
-            <p>Toko Elizabeth Cookies</p>
+            <p>Toko Elisabeth Cookies</p>
               <p>Kontak Kami Senin - Minggu Jam 07.00 - 21.00</p>
               <p><span class="glyphicon glyphicon-map-marker">Alamat: </span> Pamulang, ID</p>
               <p><span class="glyphicon glyphicon-phone">No Telp: </span>{{ $a->mobile }}</p>

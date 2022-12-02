@@ -13,6 +13,7 @@
 
                 <!-- Navigation Links -->
                 @if (Auth::id() == 1)
+                
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="url('/')">
                         {{ __('Home') }}
@@ -27,10 +28,11 @@
 
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="url('/admin')">
-                        {{ __('Admin') }}
+                    <x-nav-link :href="url('/dashboard')">
+                        {{ __('Admin Dashboard') }}
                     </x-nav-link>
                 </div>
+
                 @else 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="url('/')">
