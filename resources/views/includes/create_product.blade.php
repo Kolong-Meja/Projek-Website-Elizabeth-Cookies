@@ -38,7 +38,7 @@
                             <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" placeholder="Masukkan Deskripsi Produk">{{ old('description') }}</textarea>
                         
                             <!-- error message untuk content -->
-                            @error('content')
+                            @error('description')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>
@@ -56,8 +56,6 @@
                                 </div>
                             @enderror
                         </div>
-
-                        
 
                         <button type="submit" class="btn btn-md btn-primary">Save</button>
                         <button type="reset" class="btn btn-md btn-warning">Reset</button>

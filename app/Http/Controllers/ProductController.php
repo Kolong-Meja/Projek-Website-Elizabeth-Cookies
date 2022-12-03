@@ -10,14 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Storage;
 
-use Facade\FlareClient\Http\Response;
-
-use Illuminate\Database\QueryException;
-
-use Illuminate\Support\Facades\Validator;
-
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
-
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -33,7 +25,6 @@ class ProductController extends Controller
             $product = DB::table('products')->select('id','name', 'description', 'image', 'price')->get();
             $list_product = DB::table('products')->select('id')->get();
             $admin = Auth::id();
-            
 
             if ($admin == 1) {
                 return view('admin.product')->with('product', $product);
@@ -41,8 +32,8 @@ class ProductController extends Controller
                 $compact_data = array('product', 'list_product');
                 return view('product', compact($compact_data));
             }
-        } catch (QueryException $e) {
-            echo "Error {$e->errorInfo}";
+        } catch (Exception $e) {
+            echo "Error {$e}";
         } 
     }
 
@@ -67,8 +58,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // this is for storing all product data to database
-         //validate form
-         $this->validate($request, [
+        //validate form
+        $this->validate($request, [
             'name' => 'required|min:5',
             'description' => 'required|min:10',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -76,14 +67,14 @@ class ProductController extends Controller
         ]);
 
         //upload image
-        $image = $request->image->getClientOriginalName();
-        $image->move(public_path('image'), $image);
+        $image = $request->file('image');
+        $image->storeAs('public/image', $image->getClientOriginalName());
 
         //create product
         Product::create([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => $image,
+            'image' => $image->getClientOriginalName(),
             'price' => $request->price,
             
         ]);
@@ -121,44 +112,47 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
 
     public function update(Request $request, Product $product)
     {
-        // this is for updating the product data that we've edit before in the website
         $this->validate($request, [
             'name' => 'required|min:5',
             'description' => 'required|min:10',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'price' => 'required',
+            'price' => 'required'
         ]);
 
-        // check if the image is uploaded
+        //check if image is uploaded
         if ($request->hasFile('image')) {
+
+            //upload new image
             $image = $request->file('image');
-            $image->storeAs('public/image', $image);
+            $image->storeAs('public/image', $image->getClientOriginalName());
 
-            // delete the old image
-            Storage::delete('public/image'.$product->image);
+            //delete old image
+            Storage::delete('public/image/'.$product->image);
 
-            // update with the new image
+            //update post with new image
             $product->update([
                 'name' => $request->name,
-                'description' => $request->description,
-                'image' => $image,
-                'price' => $request->price,
+                'image'     => $image->getClientOriginalName(),
+                'description'     => $request->description,
+                'price'   => $request->price
             ]);
+
         } else {
+
+            //update post without image
             $product->update([
                 'name' => $request->name,
                 'description' => $request->description,
-                'price' => $request->price,
+                'price' => $request->price
             ]);
         }
-
-        return redirect()->route('product.index')->with('status', 'Data Berhasil Diupdate!');
+        return redirect()->route('product.index')->with('product', $product);
     }
 
     /**
@@ -174,7 +168,7 @@ class ProductController extends Controller
         //delete image
         Storage::delete('image/'. $product->image);
 
-        //delete product
+        //delete post
         $product->delete();
 
         //redirect to index
