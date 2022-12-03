@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -64,7 +66,7 @@ class ProductController extends Controller
 
         //upload image
         $image = $request->file('image');
-        $image->storeAs($image);
+        $image->storeAs('public/image', $image);
 
         //create product
         Product::create([
@@ -98,22 +100,54 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function edit($id)
+    public function edit(Product $product)
     {
-        // this is for edit our data in website
+        // this is for edit our product data in website
+        return view('admin.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  mixed  $product
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        // this is for updating the data that we've edit before in the website
+        // this is for updating the product data that we've edit before in the website
+        $this->validate($request, [
+            'name' => 'required|min:5',
+            'description' => 'required|min:10',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'price' => 'required',
+        ]);
+
+        // check if the image is uploaded
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $image->storeAs('public/image', $image);
+
+            // delete the old image
+            Storage::delete('public/image'.$product->image);
+
+            // update with the new image
+            $product->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'image' => $image,
+                'price' => $request->price,
+            ]);
+        } else {
+            $product->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+            ]);
+        }
+
+        return redirect()->route('product.index')->with('status', 'Data Berhasil Diupdate!');
     }
 
     /**
