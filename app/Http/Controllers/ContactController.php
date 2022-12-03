@@ -10,7 +10,7 @@ class ContactController extends Controller
 {
     function index() {
         $admin_id = 1;
-        $admin = DB::select('SELECT name, email, mobile FROM users WHERE id=:id', ['id' => $admin_id]);
+        $admin = DB::table('users')->select('id', 'name', 'email', 'mobile')->where('id', $admin_id)->get();
         return view('contact')->with('admin', $admin);
     }
 }

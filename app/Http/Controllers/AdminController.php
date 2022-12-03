@@ -20,14 +20,19 @@ class AdminController extends Controller
     public function index()
     {
         // this is for return our page
-        $admin = DB::table('users')->select('id')->where('id', 1)->get();
+        $admin_id = 1;
+        $admin = DB::table('users')->select('id')->where('id', $admin_id)->get();
         $auth_admin = Auth::id();
-        if ($admin->count() != $auth_admin) {
+
+        if ($admin->count() == $auth_admin) {
+            $is_online = "Admin is Online!";
+            $compact_data = array('admin', 'auth_admin', 'is_online');
+            return view('admin.dashboard', compact($compact_data));
+
+        }  elseif ($admin->count() != $auth_admin) {
             $error_report = abort(403, "You don't have access to this page!");
             return $error_report;
         }
-
-        return view('admin.dashboard', ['admin' => $admin])->with('auth_admin', $auth_admin);
     }
 
     /**

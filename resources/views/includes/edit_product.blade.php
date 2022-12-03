@@ -3,30 +3,21 @@
         <div class="col-md-12">
             <div class="card border-0 shadow rounded">
                 <div class="card-body">
-                    <a href="{{ url('/') }}" class="btn btn-md btn-success mb-3">Back To Home</a>
-                    <a href="{{ route('product.index') }}" class="btn btn-md btn-success mb-3">Product</a>
-                    <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
-                    
+                    <form action="{{ route('product.update', $product->name) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
 
                         <div class="form-group">
                             <label class="font-weight-bold">Image</label>
-                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
-                        
-                            <!-- error message untuk title -->
-                            @error('image')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <input type="file" class="form-control" name="image">
                         </div>
 
                         <div class="form-group">
                             <label class="font-weight-bold">Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Masukkan Nama Produk">
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="name" value="{{ old('title', $product->name) }}" placeholder="Masukkan Nama Produk">
                         
                             <!-- error message untuk title -->
-                            @error('name')
+                            @error('title')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>
@@ -35,7 +26,7 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" placeholder="Masukkan Deskripsi Produk">{{ old('description') }}</textarea>
+                            <textarea class="form-control @error('content') is-invalid @enderror" name="content" rows="5" placeholder="Masukkan Deskripsi Produk">{{ old('content', $product->description) }}</textarea>
                         
                             <!-- error message untuk content -->
                             @error('content')
@@ -47,21 +38,18 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Price</label>
-                            <input type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" placeholder="Masukkan Harga Produk">
+                            <textarea class="form-control @error('content') is-invalid @enderror" name="content" rows="5" placeholder="Masukkan Harga Produk">{{ old('content', $product->price) }}</textarea>
                         
-                            <!-- error message untuk title -->
-                            @error('price')
+                            <!-- error message untuk content -->
+                            @error('content')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
 
-                        
-
-                        <button type="submit" class="btn btn-md btn-primary">Save</button>
+                        <button type="submit" class="btn btn-md btn-primary">Update</button>
                         <button type="reset" class="btn btn-md btn-warning">Reset</button>
-
                     </form> 
                 </div>
             </div>
@@ -73,7 +61,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace( 'description' );
+    CKEDITOR.replace( 'content' );
 </script>
-</body>
-</html>

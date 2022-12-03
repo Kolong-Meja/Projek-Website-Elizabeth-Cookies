@@ -22,13 +22,15 @@ class ProductController extends Controller
 
     public function index() {
         try {
-            $product = DB::table('products')->select('id', 'name', 'description', 'image', 'price')->get();
+            $product = DB::table('products')->select('id','name', 'description', 'image', 'price')->get();
+            $list_product = DB::table('products')->select('id')->get();
             $admin = Auth::id();
 
             if ($admin == 1) {
                 return view('admin.product')->with('product', $product);
             } else {
-                return view('product')->with('product', $product);
+                $compact_data = array('product', 'list_product');
+                return view('product', compact($compact_data));
             }
         } catch (Exception $e) {
             echo "Error {$e}";
@@ -65,8 +67,8 @@ class ProductController extends Controller
         ]);
 
         //upload image
-        $image = $request->file('image');
-        $image->storeAs('public/image', $image);
+        $image = $request->image->getClientOriginalName();
+        $image->move(public_path('image'), $image);
 
         //create product
         Product::create([
@@ -78,7 +80,7 @@ class ProductController extends Controller
         ]);
 
         //redirect to index
-        return redirect()->route('product.index')->with('status','Data Berhasil Disimpan!');
+        return redirect()->route('product.index')->with('status', 'Data Berhasil Disimpan!');
     }
 
     /**
@@ -147,7 +149,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('product.index')->with('status', 'Data Berhasil Diupdate!');
+        return redirect()->route('product.index')->with(['success' => 'Data Berhasil Diupdate!']);
     }
 
     /**
@@ -157,8 +159,16 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        // this is for deleting our data from database
+        // this is for deleting our product data from database
+        //delete image
+        Storage::delete('image/'. $product->image);
+
+        //delete post
+        $product->delete();
+
+        //redirect to index
+        return redirect()->route('product.index')->with('status', 'Data Berhasil Dihapus!');
     }
 }

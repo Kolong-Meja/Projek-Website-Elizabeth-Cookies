@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/user', [TestController::class, 'show_data']);
 
 # admin page route
-Route::resource('/admin', AdminController::class);
+Route::resource('admin', AdminController::class);
 
 # home page route
 Route::get('/', [HomeController::class, 'index']);
