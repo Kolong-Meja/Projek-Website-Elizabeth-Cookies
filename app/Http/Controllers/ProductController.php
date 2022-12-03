@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Storage;
 
+use Facade\FlareClient\Http\Response;
+
+use Illuminate\Database\QueryException;
+
+use Illuminate\Support\Facades\Validator;
+
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -25,6 +33,7 @@ class ProductController extends Controller
             $product = DB::table('products')->select('id','name', 'description', 'image', 'price')->get();
             $list_product = DB::table('products')->select('id')->get();
             $admin = Auth::id();
+            
 
             if ($admin == 1) {
                 return view('admin.product')->with('product', $product);
@@ -32,8 +41,8 @@ class ProductController extends Controller
                 $compact_data = array('product', 'list_product');
                 return view('product', compact($compact_data));
             }
-        } catch (Exception $e) {
-            echo "Error {$e}";
+        } catch (QueryException $e) {
+            echo "Error {$e->errorInfo}";
         } 
     }
 
@@ -149,7 +158,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('product.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        return redirect()->route('product.index')->with('status', 'Data Berhasil Diupdate!');
     }
 
     /**
@@ -165,7 +174,7 @@ class ProductController extends Controller
         //delete image
         Storage::delete('image/'. $product->image);
 
-        //delete post
+        //delete product
         $product->delete();
 
         //redirect to index

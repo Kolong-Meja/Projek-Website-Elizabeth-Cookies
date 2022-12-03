@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/user', [TestController::class, 'show_data']);
 
 # admin page route
-Route::resource('admin', AdminController::class);
+Route::get('admin', [AdminController::class, 'index']);
 
 # home page route
 Route::get('/', [HomeController::class, 'index']);
@@ -56,13 +56,13 @@ Route::post('register', [RegisteredUserController::class, 'store']);
 Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 # product page route
-Route::resource('/product', ProductController::class);
+Route::resource('product', ProductController::class);
 
 # contact page route
-Route::get('/contact', [ContactController::class, 'index']);
+Route::get('contact', [ContactController::class, 'index']);
 
 # about page route
-Route::get('/about', [AboutController::class, 'index']);
+Route::get('about', [AboutController::class, 'index']);
 
 # profile page route
 Route::middleware('auth')->group(function () {
