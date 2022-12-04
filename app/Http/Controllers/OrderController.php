@@ -14,6 +14,8 @@ use App\Models\Order;
 
 use App\Models\Product;
 
+use App\Models\User;
+
 class OrderController extends Controller
 {
     /**
@@ -24,6 +26,9 @@ class OrderController extends Controller
     public function index()
     {
         // return all data with GET method in order page view
+        $order = Order::select('user_id', 'name', 'email', 'mobile', 'quantity')->where('id', Auth::id())->get();
+
+        return view('order.order_detail', $order);
 
     }
 
@@ -33,8 +38,8 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {  
+        return view('order.create');
     }
 
     /**
@@ -45,7 +50,27 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        $product = Product::select('price')->firstOrFail();
+
+        $this->validate($request, [
+            'user_id' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'mobile' => 'required',
+            'quantity' => 'required',
+        ]);
+
+        Order::create([
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'quantity' => $request->quantity,
+        ]);
+
+        return redirect()->route('order.index');
     }
 
     /**
@@ -56,7 +81,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        
+       
     }
 
     /**

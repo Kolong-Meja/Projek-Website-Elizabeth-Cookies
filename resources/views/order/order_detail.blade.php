@@ -4,6 +4,6 @@
     @include('includes.head')
 </head>
 <body>
-    @include('includes.create_order')
+    
 </body>
 </html>

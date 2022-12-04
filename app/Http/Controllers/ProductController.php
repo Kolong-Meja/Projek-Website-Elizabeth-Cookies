@@ -31,10 +31,11 @@ class ProductController extends Controller
 
             if ($admin == 1) {
                 return view('admin.product')->with('product', $product);
-            } else {
-                $compact_data = array('product', 'list_product', 'is_login');
-                return view('product', compact($compact_data));
             }
+            
+            $compact_data = array('product', 'list_product', 'is_login');
+            return view('product', compact($compact_data));
+            
         } catch (Exception $e) {
             echo "Error {$e}";
         } 
@@ -100,10 +101,9 @@ class ProductController extends Controller
     public function show($slug)
     {
         // this is for getting the product data one by one that we've store to database and show it to our website
-        $product = Product::select('name', 'description', 'image', 'price')->where('name', $slug)->firstOrFail();
+        $product = Product::select('name', 'description', 'image', 'price', 'quantity')->where('name', $slug)->firstOrFail();
         $data = array('product' => $product);
         return view('product_detail', $data);
-
     }
 
     /**

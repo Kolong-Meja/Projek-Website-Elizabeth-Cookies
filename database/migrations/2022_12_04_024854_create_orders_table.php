@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->float('total');
+            $table->smallInteger('quantity', 6);
             $table->string('name');
             $table->string('email')->unique();
             $table->char('mobile', 13);

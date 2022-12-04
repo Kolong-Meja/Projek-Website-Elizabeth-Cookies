@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/user', [TestController::class, 'show_data']);
 
 # order page route
-// Route::resource('order', OrderController::class);
+Route::resource('order', OrderController::class);
 
 # admin page route
 Route::get('admin', [AdminController::class, 'index']);
