@@ -10,7 +10,7 @@
                         @method('PUT')
 
                          <div class="form-group">
-                            <label class="font-weight-bold">Name</label>
+                            <label class="font-weight-bold">Admin ID</label>
                             <input type="number" class="form-control @error('user_id') is-invalid @enderror" name="user_id" value="{{ old('user_id', $product->user_id) }}" placeholder="Masukkan ID Admin">
                         
                             <!-- error message untuk title -->
@@ -56,6 +56,18 @@
                         
                             <!-- error message untuk content -->
                             @error('price')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label class="font-weight-bold">Quantity</label>
+                            <input type="number" min="1" class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity', $product->quantity) }}" placeholder="Masukkan Jumlah Produk">
+                        
+                            <!-- error message untuk content -->
+                            @error('quantity')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>

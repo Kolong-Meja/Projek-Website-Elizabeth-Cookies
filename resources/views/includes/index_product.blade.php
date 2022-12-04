@@ -12,6 +12,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -23,6 +24,7 @@
                                 <td>{{ $p->name }}</td>
                                 <td>{!! $p->description !!}</td>
                                 <td>{{ $p->price }}</td>
+                                <td>{{ $p->quantity }}</td>
                                 <td class="text-center">
                                     <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('product.destroy', $p->id) }}" method="POST">
                                         <a href="{{ route('product.edit', $p->id) }}" class="btn btn-sm btn-primary">Edit</a>

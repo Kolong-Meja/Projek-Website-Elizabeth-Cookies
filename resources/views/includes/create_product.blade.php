@@ -69,6 +69,18 @@
                             @enderror
                         </div>
 
+                        <div class="form-group">
+                            <label class="font-weight-bold">Quantity</label>
+                            <input type="number" min="1" class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity') }}" placeholder="Masukkan Jumlah Produk">
+                        
+                            <!-- error message untuk title -->
+                            @error('quantity')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
                         <button type="submit" class="btn btn-md btn-primary">Save</button>
                         <button type="reset" class="btn btn-md btn-warning">Reset</button>
 

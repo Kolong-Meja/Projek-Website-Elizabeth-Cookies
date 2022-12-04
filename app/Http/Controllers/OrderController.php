@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Order;
 
+use App\Models\Product;
+
 class OrderController extends Controller
 {
     /**
@@ -22,7 +24,6 @@ class OrderController extends Controller
     public function index()
     {
         // return all data with GET method in order page view
-        return view('order');
 
     }
 
@@ -55,7 +56,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

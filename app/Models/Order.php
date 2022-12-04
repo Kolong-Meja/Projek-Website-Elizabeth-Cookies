@@ -17,4 +17,9 @@ class Order extends Model
         $relation = hasOne('App\Models\User', 'user_id');
         return $this->$relation;
     }
+
+    public function products() {
+        $relation = belongsToMany('App\Models\Product', 'order_products', 'order_id', 'product_id');
+        return $this->$relation;
+    }
 }

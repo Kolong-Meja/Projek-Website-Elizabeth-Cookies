@@ -15,10 +15,16 @@ class Product extends Model
         'description',
         'image',
         'price',
+        'quantity,'
     ];
 
     public function users() {
         $relation = hasOne('App\Models\User', 'user_id');
+        return $this->$relation;
+    }
+
+    public function orders() {
+        $relation = belongsToMany('App\Models\Order', 'order_products', 'order_id', 'product_id');
         return $this->$relation;
     }
 }

@@ -24,7 +24,7 @@ class ProductController extends Controller
 
     public function index() {
         try {
-            $product = DB::table('products')->select('id','name', 'description', 'image', 'price')->get();
+            $product = DB::table('products')->select('id','name', 'description', 'image', 'price', 'quantity')->get();
             $list_product = DB::table('products')->select('id')->get();
             $admin = Auth::id();
             $is_login = Auth::user();
@@ -68,6 +68,7 @@ class ProductController extends Controller
             'description' => 'required|min:10',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required',
+            'quantity' => 'required|min:1',
         ]);
 
         //upload image
@@ -81,6 +82,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'image' => $image->getClientOriginalName(),
             'price' => $request->price,
+            'quantity' => $request->quantity,
             
         ]);
 
@@ -91,13 +93,17 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  mixed  $slug
      * @return \Illuminate\Http\Response
      */
 
-    public function show($id)
+    public function show($slug)
     {
-        // this is for getting the data that we've store to database and show it to our website
+        // this is for getting the product data one by one that we've store to database and show it to our website
+        $product = Product::select('name', 'description', 'image', 'price')->where('name', $slug)->firstOrFail();
+        $data = array('product' => $product);
+        return view('product_detail', $data);
+
     }
 
     /**
@@ -128,7 +134,8 @@ class ProductController extends Controller
             'name' => 'required|min:5',
             'description' => 'required|min:10',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'price' => 'required'
+            'price' => 'required',
+            'quantity' => 'required|min:1',
         ]);
 
         //check if image is uploaded
@@ -147,7 +154,8 @@ class ProductController extends Controller
                 'name' => $request->name,
                 'image' => $image->getClientOriginalName(),
                 'description' => $request->description,
-                'price' => $request->price
+                'price' => $request->price,
+                'quantity' => $request->quantity
             ]);
 
         } else {
@@ -157,7 +165,8 @@ class ProductController extends Controller
                 'user_id' => $request->user_id,
                 'name' => $request->name,
                 'description' => $request->description,
-                'price' => $request->price
+                'price' => $request->price,
+                'quantity' => $request->quantity
             ]);
         }
         return redirect()->route('product.index')->with('product', $product);
