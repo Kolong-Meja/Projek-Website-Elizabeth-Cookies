@@ -10,6 +10,18 @@
                         @csrf
 
                         <div class="form-group">
+                            <label class="font-weight-bold">Admin ID</label>
+                            <input type="number" min="1" max="1" class="form-control @error('user_id') is-invalid @enderror" name="user_id" value="{{ old('user_id') }}" placeholder="Masukkan ID Admin">
+                        
+                            <!-- error message untuk title -->
+                            @error('user_id')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label class="font-weight-bold">Image</label>
                             <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
                         
@@ -47,7 +59,7 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Price</label>
-                            <input type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" placeholder="Masukkan Harga Produk">
+                            <input type="number" min="5000" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" placeholder="Masukkan Harga Produk">
                         
                             <!-- error message untuk title -->
                             @error('price')

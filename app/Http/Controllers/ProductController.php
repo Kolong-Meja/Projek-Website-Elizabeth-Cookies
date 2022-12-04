@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Product;
 
+use App\Models\User;
+
 class ProductController extends Controller
 {   
     /**
@@ -25,11 +27,12 @@ class ProductController extends Controller
             $product = DB::table('products')->select('id','name', 'description', 'image', 'price')->get();
             $list_product = DB::table('products')->select('id')->get();
             $admin = Auth::id();
+            $is_login = Auth::user();
 
             if ($admin == 1) {
                 return view('admin.product')->with('product', $product);
             } else {
-                $compact_data = array('product', 'list_product');
+                $compact_data = array('product', 'list_product', 'is_login');
                 return view('product', compact($compact_data));
             }
         } catch (Exception $e) {
@@ -56,10 +59,11 @@ class ProductController extends Controller
      */
 
     public function store(Request $request)
-    {
+    {   
         // this is for storing all product data to database
         //validate form
         $this->validate($request, [
+            'user_id' => 'required',
             'name' => 'required|min:5',
             'description' => 'required|min:10',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -72,6 +76,7 @@ class ProductController extends Controller
 
         //create product
         Product::create([
+            'user_id' => $request->user_id,
             'name' => $request->name,
             'description' => $request->description,
             'image' => $image->getClientOriginalName(),
@@ -119,6 +124,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $this->validate($request, [
+            'user_id' => 'required',
             'name' => 'required|min:5',
             'description' => 'required|min:10',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -137,16 +143,18 @@ class ProductController extends Controller
 
             //update post with new image
             $product->update([
+                'user_id' => $request->user_id,
                 'name' => $request->name,
-                'image'     => $image->getClientOriginalName(),
-                'description'     => $request->description,
-                'price'   => $request->price
+                'image' => $image->getClientOriginalName(),
+                'description' => $request->description,
+                'price' => $request->price
             ]);
 
         } else {
 
             //update post without image
             $product->update([
+                'user_id' => $request->user_id,
                 'name' => $request->name,
                 'description' => $request->description,
                 'price' => $request->price

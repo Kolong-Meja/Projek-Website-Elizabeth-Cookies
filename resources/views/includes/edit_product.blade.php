@@ -8,6 +8,18 @@
                     <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+
+                         <div class="form-group">
+                            <label class="font-weight-bold">Name</label>
+                            <input type="number" class="form-control @error('user_id') is-invalid @enderror" name="user_id" value="{{ old('user_id', $product->user_id) }}" placeholder="Masukkan ID Admin">
+                        
+                            <!-- error message untuk title -->
+                            @error('user_id')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                         
                         <div class="form-group">
                             <label class="font-weight-bold">Image</label>
@@ -40,7 +52,7 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Price</label>
-                            <textarea class="form-control @error('price') is-invalid @enderror" name="price" rows="5" placeholder="Masukkan Harga Produk">{{ old('price', $product->price) }}</textarea>
+                            <input type="number" min="5000" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price', $product->price) }}" placeholder="Masukkan Harga Produk">
                         
                             <!-- error message untuk content -->
                             @error('price')

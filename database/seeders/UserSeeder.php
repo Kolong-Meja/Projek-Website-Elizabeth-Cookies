@@ -15,20 +15,19 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-
         // this is just the example of seeding
         $admin = User::create([
             'name' => 'Faisal Ramadhan',
             'email' => 'faisalramadhan08@gmail.com',
-            'password' => bcrypt('Faisal04#'),
+            'password' => bcrypt('12345678'),
             'mobile' => '085877889966'
         ]);
 
         $admin->assignRole('admin');
 
         // $user = User::create([
-        //     'name' => 'User',
-        //     'email' => 'user@kawankoding.id',
+        //     'name' => 'Rafi Hanifyanto',
+        //     'email' => 'rafihanifyanto5@gmail.com',
         //     'password' => bcrypt('12345678'),
         //     'mobile' => '085877665544'
         // ]);

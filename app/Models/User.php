@@ -50,4 +50,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function orders() {
+        $relation = hasMany('App\Models\Order', 'user_id');
+        return $this->$relation;
+    }
+
+    public function products() {
+        $relation = hasMany('App\Models\Product', 'user_id');
+        return $this->$relation;
+    }
 }

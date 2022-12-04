@@ -14,6 +14,8 @@ use App\Http\Controllers\ContactController;
 
 use App\Http\Controllers\AboutController;
 
+use App\Http\Controllers\OrderController;
+
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -33,6 +35,9 @@ use Illuminate\Support\Facades\Route;
 
 # route test page
 // Route::get('/user', [TestController::class, 'show_data']);
+
+# order page route
+Route::resource('order', OrderController::class);
 
 # admin page route
 Route::get('admin', [AdminController::class, 'index']);
