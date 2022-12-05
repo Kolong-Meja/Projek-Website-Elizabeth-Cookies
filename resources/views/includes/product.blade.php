@@ -13,7 +13,7 @@
                     @if ($is_login)
                     <div class="Buy">
                         {{-- <a href="https://wa.me/6285693426186?text=Saya%20Pesan%20Lidah%20Kucing">BUY NOW!</a> --}}
-                        <a href="{{ route('product.create')}}">ORDER NOW!</a>
+                        <a href="{{ route('product.show', $p->name)}}">ORDER NOW!</a>
                     </div>
                     @endif
                 </div>

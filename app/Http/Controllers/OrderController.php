@@ -25,10 +25,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // return all data with GET method in order page view
-        $order = Order::select('user_id', 'name', 'email', 'mobile', 'quantity')->where('id', Auth::id())->get();
-
-        return view('order.order_detail', $order);
 
     }
 
@@ -38,8 +34,10 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {  
-        return view('order.create');
+    {   
+        $user = Auth::user();
+
+        return view('order.create')->with('user', $user);
     }
 
     /**
@@ -52,25 +50,21 @@ class OrderController extends Controller
     {
         $user = Auth::user();
 
-        $product = Product::select('price')->firstOrFail();
+        $product = Product::select('name')->firstOrFail();
 
         $this->validate($request, [
-            'user_id' => 'required',
-            'name' => 'required',
-            'email' => 'required',
-            'mobile' => 'required',
             'quantity' => 'required',
         ]);
 
         Order::create([
-            'user_id' => $request->user_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'mobile' => $user->mobile,
             'quantity' => $request->quantity,
         ]);
 
-        return redirect()->route('order.index');
+        return redirect()->route('order.show', $product->name);
     }
 
     /**
@@ -79,9 +73,12 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-       
+    public function show($slug)
+    {   
+        // $product = Product::select('name')->first();
+        // $order = Order::select('user_id', 'name', 'email', 'mobile', 'quantity')->where($product, $slug)->firstOrFail();
+        // $data = array('order' => $order);
+        return view('order.order_detail');  
     }
 
     /**

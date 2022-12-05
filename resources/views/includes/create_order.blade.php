@@ -11,7 +11,7 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">User ID</label>
-                            <input type="number" min="{{ Auth::id() }}" max="{{ Auth::id() }}" class="form-control @error('user_id') is-invalid @enderror" name="user_id" value="{{ Auth::user()->id }}" placeholder="Masukkan User ID">
+                            <p>{{ $user->id }}</p>
                         
                             <!-- error message untuk title -->
                             @error('user_id')
@@ -23,7 +23,7 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Your Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}" placeholder="Masukkan Nama Anda">
+                           <p>{{ $user->name }}</p>
                         
                             <!-- error message untuk title -->
                             @error('name')
@@ -35,7 +35,7 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Your Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" placeholder="Masukkan Email Anda">
+                            <p>{{ $user->email }}</p>
                         
                             <!-- error message untuk title -->
                             @error('email')
@@ -47,14 +47,7 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Your Mobile Phone</label>
-                            <input type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ Auth::user()->mobile }}" placeholder="Masukkan Nomor Handphone Anda">
-                        
-                            <!-- error message untuk title -->
-                            @error('mobile')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                           <p>{{ $user->mobile }}</p>
                         </div>
 
                         <div class="form-group">
@@ -68,18 +61,6 @@
                                 </div>
                             @enderror
                         </div>
-
-                        {{-- <div class="form-group">
-                            <label class="font-weight-bold">Sub Total</label>
-                            <input type="number" class="form-control @error('total') is-invalid @enderror" name="total" value="{{ old('total') }}">
-                        
-                            <!-- error message untuk title -->
-                            @error('total')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div> --}}
 
                         <button type="submit" class="btn btn-md btn-primary">Save</button>
                         <button type="reset" class="btn btn-md btn-warning">Reset</button>
