@@ -11,7 +11,6 @@
                     <div class="card border-0 shadow rounded mb-5">
                         <div class="card-body">
                             <a href="{{ route('product.index') }}" class="btn btn-md btn-success mb-3">Back To Home</a>
-                            <a href="{{ route('order.create', $product->name) }}" class="btn btn-md btn-success mb-3">Order Now!</a>
                             <div class="name">
                                 <p class="font-weight-bold">{{ $product->name }}</p>
                             </div>

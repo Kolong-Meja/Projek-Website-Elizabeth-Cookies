@@ -101,7 +101,7 @@ class ProductController extends Controller
     public function show($slug)
     {
         // this is for getting the product data one by one that we've store to database and show it to our website
-        $product = Product::select('name', 'description', 'image', 'price', 'quantity')->where('name', $slug)->firstOrFail();
+        $product = Product::select('name', 'description', 'image', 'price', 'quantity')->where('name', $slug)->first();
         $data = array('product' => $product);
         return view('product_detail', $data);
     }

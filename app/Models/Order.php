@@ -10,7 +10,9 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'name', 'email', 'mobile', 'quantity', 'total', 
+        'user_id', 'product_id', 'user_name', 
+        'user_email', 'user_mobile','product_name', 
+        'price', 'quantity', 'sub_total'
     ];
 
     public function users() {
@@ -19,7 +21,7 @@ class Order extends Model
     }
 
     public function products() {
-        $relation = belongsToMany('App\Models\Product', 'order_products', 'order_id', 'product_id');
+        $relation = hasOne('App\Models\Product', 'product_id');
         return $this->$relation;
     }
 }

@@ -16,12 +16,16 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('product_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->float('total');
-            $table->smallInteger('quantity', 6);
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->char('mobile', 13);
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->string('user_name');
+            $table->string('user_email');
+            $table->char('user_mobile', 13);
+            $table->string('product_name');
+            $table->float('price');
+            $table->smallInteger('quantity');
+            $table->float('sub_total');
             $table->timestamps();
         });
     }

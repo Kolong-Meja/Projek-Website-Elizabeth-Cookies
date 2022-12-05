@@ -3,59 +3,27 @@
         <div class="col-md-12">
             <div class="card border-0 shadow rounded">
                 <div class="card-body">
-                    <a href="{{ url('/') }}" class="btn btn-md btn-success mb-3">Back To Home</a>
-                    <a href="{{ route('product.index') }}" class="btn btn-md btn-success mb-3">Product</a>
-                    <form action="{{ route('order.store') }}" method="POST" enctype="multipart/form-data">
-                    
+                    <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
+                            <label class="font-weight-bold">Product ID</label>
+                            <input type="number" min="1" class="form-control @error('product_id') is-invalid @enderror" name="product_id" value="{{ old('product_id') }}" placeholder="Masukkan product ID">
+                        
+                            <!-- error message untuk title -->
+                            @error('product_id')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label class="font-weight-bold">User ID</label>
-                            <p>{{ $user->id }}</p>
+                            <input type="number" min="2" class="form-control @error('user_id') is-invalid @enderror" name="user_id" value="{{ old('user_id') }}" placeholder="Masukkan user ID">
                         
                             <!-- error message untuk title -->
                             @error('user_id')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label class="font-weight-bold">Your Name</label>
-                           <p>{{ $user->name }}</p>
-                        
-                            <!-- error message untuk title -->
-                            @error('name')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label class="font-weight-bold">Your Email</label>
-                            <p>{{ $user->email }}</p>
-                        
-                            <!-- error message untuk title -->
-                            @error('email')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label class="font-weight-bold">Your Mobile Phone</label>
-                           <p>{{ $user->mobile }}</p>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="font-weight-bold">Quantity</label>
-                            <input type="number" min="1" class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity') }}" placeholder="Masukkan Jumlah Produk">
-                        
-                            <!-- error message untuk title -->
-                            @error('quantity')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>

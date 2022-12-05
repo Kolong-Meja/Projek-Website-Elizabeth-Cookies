@@ -33,11 +33,12 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($slug)
     {   
         $user = Auth::user();
-
-        return view('order.create')->with('user', $user);
+        $product = Product::select('name', 'description', 'image', 'price', 'quantity')->where('name', $slug)->first();
+        $data = array('product' => $product, 'user' => $user);
+        return view('order.create', $data);
     }
 
     /**
@@ -47,24 +48,8 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $user = Auth::user();
-
-        $product = Product::select('name')->firstOrFail();
-
-        $this->validate($request, [
-            'quantity' => 'required',
-        ]);
-
-        Order::create([
-            'user_id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'mobile' => $user->mobile,
-            'quantity' => $request->quantity,
-        ]);
-
-        return redirect()->route('order.show', $product->name);
+    {   
+        
     }
 
     /**
@@ -75,10 +60,10 @@ class OrderController extends Controller
      */
     public function show($slug)
     {   
-        // $product = Product::select('name')->first();
-        // $order = Order::select('user_id', 'name', 'email', 'mobile', 'quantity')->where($product, $slug)->firstOrFail();
-        // $data = array('order' => $order);
-        return view('order.order_detail');  
+        $user = Auth::user();
+        $order = Order::select('product_id')->where('product_name', $slug)->first();
+        $data = array('order' => $order);
+        return view('order.order_detail', $data);
     }
 
     /**

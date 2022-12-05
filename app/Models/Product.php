@@ -15,7 +15,7 @@ class Product extends Model
         'description',
         'image',
         'price',
-        'quantity,'
+        'quantity',
     ];
 
     public function users() {
@@ -24,7 +24,7 @@ class Product extends Model
     }
 
     public function orders() {
-        $relation = belongsToMany('App\Models\Order', 'order_products', 'order_id', 'product_id');
+        $relation = hasMany('App\Model\Product');
         return $this->$relation;
     }
 }

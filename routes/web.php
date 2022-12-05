@@ -37,7 +37,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/user', [TestController::class, 'show_data']);
 
 # order page route
-Route::resource('order', OrderController::class);
+Route::get('order/create/{product}', [OrderController::class, 'create'])->name('create');
+
+Route::post('order', [OrderController::class, 'store'])->name('store');
 
 # admin page route
 Route::get('admin', [AdminController::class, 'index']);

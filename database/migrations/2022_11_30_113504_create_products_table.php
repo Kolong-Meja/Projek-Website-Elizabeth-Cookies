@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('image');
             $table->float('price');
+            $table->smallInteger('quantity');
             $table->timestamps();
         });
     }

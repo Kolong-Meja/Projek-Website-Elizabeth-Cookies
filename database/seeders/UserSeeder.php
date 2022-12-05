@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         // this is just the example of seeding
+
         $admin = User::create([
             'name' => 'Faisal Ramadhan',
             'email' => 'faisalramadhan08@gmail.com',
@@ -25,13 +26,13 @@ class UserSeeder extends Seeder
 
         $admin->assignRole('admin');
 
-        // $user = User::create([
-        //     'name' => 'Rafi Hanifyanto',
-        //     'email' => 'rafihanifyanto5@gmail.com',
-        //     'password' => bcrypt('12345678'),
-        //     'mobile' => '085877665544'
-        // ]);
+        $user = User::create([
+            'name' => 'John Smith',
+            'email' => 'johnsmith78@gmail.com',
+            'password' => bcrypt('12345678'),
+            'mobile' => '085877665544'
+        ]);
 
-        // $user->assignRole('user');
+        $user->assignRole('user');
     }
 }

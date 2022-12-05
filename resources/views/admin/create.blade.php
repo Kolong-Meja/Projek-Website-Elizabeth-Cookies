@@ -4,6 +4,6 @@
     @include('includes.head')
 </head>
 <body>
-    @include('includes.create_order')
+    @include('includes.create_product')
 </body>
 </html>
