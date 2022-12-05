@@ -33,12 +33,9 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($slug)
+    public function create()
     {   
-        $user = Auth::user();
-        $product = Product::select('name', 'description', 'image', 'price', 'quantity')->where('name', $slug)->first();
-        $data = array('product' => $product, 'user' => $user);
-        return view('order.create', $data);
+       
     }
 
     /**
@@ -58,12 +55,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {   
-        $user = Auth::user();
-        $order = Order::select('product_id')->where('product_name', $slug)->first();
-        $data = array('order' => $order);
-        return view('order.order_detail', $data);
+        
     }
 
     /**

@@ -13,6 +13,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 use Spatie\Permission\Traits\HasRoles;
 
+use App\Models\Product;
+
+use App\Models\Order;
+
 class User extends Authenticatable
 {
 
@@ -52,12 +56,10 @@ class User extends Authenticatable
     ];
 
     public function orders() {
-        $relation = hasMany('App\Models\Order', 'user_id');
-        return $this->$relation;
+        return $this->hasMany(Order::class, 'user_id');
     }
 
     public function products() {
-        $relation = hasMany('App\Models\Product', 'user_id');
-        return $this->$relation;
+        return $this->hasMany(Product::class, 'user_id');
     }
 }
