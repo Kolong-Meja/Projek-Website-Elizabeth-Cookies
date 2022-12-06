@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <a href="{{ route('home.index') }}" class="btn btn-md btn-success mb-3">Back To Home</a>
                     <a href="{{ route('product.index') }}" class="btn btn-md btn-success mb-3">Product</a>
-                    <form action="{{ route('product.update', $product->name) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 

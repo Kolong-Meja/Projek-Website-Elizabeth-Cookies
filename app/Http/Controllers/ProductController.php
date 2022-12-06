@@ -27,9 +27,8 @@ class ProductController extends Controller
             $product = DB::table('products')->select('id','name', 'description', 'image', 'price', 'quantity')->get();
             $list_product = DB::table('products')->select('id')->get();
             $admin = Auth::id();
-            $is_login = Auth::user();
 
-            if ($admin == 1) {
+            if ($admin) {
                 return view('admin.product')->with('product', $product);
             }
             
