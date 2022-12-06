@@ -19,7 +19,8 @@ class OrderAPIController extends Controller
      */
     public function index()
     {   
-        $order = Order::with('products')->get();
+        # get all order data
+        $order = Order::with('products')->latest()->firstOrFail();
         $response = [
             'message' => 'Order Data',
             'data' => $order,
@@ -36,7 +37,7 @@ class OrderAPIController extends Controller
      */
     public function store(Request $request)
     {
-         // membuat metode post
+         // create order data and store it to database
          $validator = Validator::make($request->all(), [
             'user_id' => ['required', 'integer', 'min:1'],
             'product_id' => ['required', 'integer', 'min:1'],
@@ -74,11 +75,12 @@ class OrderAPIController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        $user_order = Order::with('users')->get();
+    {   
+        // show order data by id
+        $product_order = Order::with('products')->find($id);
         $response = [
             'message' => 'User Order Data',
-            'data' => $user_order,
+            'data' => $product_order,
         ];
 
         return response()->json($response, HttpFoundationResponse::HTTP_OK);

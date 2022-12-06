@@ -46,7 +46,6 @@
     <ul class="navbar-nav ml-auto">
       <li class="Nav-edit">
         <div class="btn-group">
-          <a href="#"> <button type="button" class="btn btn-pink">Order List</button></a>
           <a href="{{ route('home.index') }}"> <button type="button" class="btn btn-pink">Home</button></a>
           <a href="{{ route('product.index') }}"> <button type="button" class="btn btn-pink">Product</button></a>
           <a href="{{ route('contact.index')}}"> <button type="button" class="btn btn-pink">Contact</button></a>

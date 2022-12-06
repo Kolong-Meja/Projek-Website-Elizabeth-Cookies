@@ -25,7 +25,28 @@ class OrderController extends Controller
      */
     public function index()
     {   
-        return view('order.order_detail');
+        $user = Auth::user();
+        $order = Order::with('users')->where('id', $user->id)->find($user->id);
+        $get_latest_order = Order::select(
+            'product_id', 'user_name', 
+            'user_email', 'user_mobile', 
+            'quantity')->latest()->first();
+        $product = Order::with('products')->latest()->firstOrFail();
+        $get_order_quantity = $get_latest_order->quantity;
+        $get_product_price = $product->products->price;
+        $sub_total = $get_order_quantity * $get_product_price;
+        $compact_data = array(
+            'get_latest_order' => $get_latest_order,
+            'product' => $product,
+            'product_price' => $get_product_price,
+            'sub_total' => $sub_total,
+        );
+
+        if ($user) {
+            return view('order.order', $compact_data);
+        }
+        
+        return abort(404);
     }
 
     /**
@@ -72,8 +93,9 @@ class OrderController extends Controller
             'user_mobile' => $user->mobile,
             'quantity' => $request->quantity,
         ]);
-        $message = 'Order anda berhasil diterima oleh kami, silahkan melakukan pembayaran ya!';
-        return redirect()->route('order.show', $user->name)->with('success', $message);
+
+        $message = 'Order anda berhasil diterima oleh kami, Silahkan Scan QR code dibawah ini untuk proses pembayaran';
+        return redirect()->route('order.index')->with('success', $message);
     }
 
     /**
@@ -84,20 +106,16 @@ class OrderController extends Controller
      */
     public function show($id)
     {   
-        // $order = Order::with('users')->find($id);
-        // return view('order.list_order')->with('order', $order);
+        $user = Auth::user();
+        $guest = Auth::guest();
 
-        // $user = Auth::user();
-        // $user_order = Order::with('users')->find($id);
-        // $data = array('user_order' => $user_order, 'user' => $user);
-        // return view('order.list_order', $data);
-
-        // $order = Order::select('*')->where('id', $id)->first();
-        // $user_order = Order::with('users')->get();
-        // $response = [
-        //     'message' => 'User Order Data',
-        //     'data' => $user_order,
-        // ];
+        if ($guest) {
+            $abort_page = abort(404);
+            return $abort_page;
+        }
+        $message = 'Hello World!';
+        return view('order.order_detail')->with('message', $message);
+        // $show_order_by_user_id = Order::with('users')->where('id', $id)->findOrFail($id);
     }
 
     /**

@@ -28,16 +28,16 @@ Route::get('order', [OrderAPIController::class, 'index'])->name('order.index');
 
 Route::post('order', [OrderAPIController::class, 'store'])->name('order.store');
 
-Route::get('order/{user_id}', [OrderAPIController::class, 'show'])->name('order.show');
+Route::get('order/{order}', [OrderAPIController::class, 'show'])->name('order.show');
 
-Route::get('/product', [ProductAPIController::class, 'index'])->name('product.index');
+Route::get('product', [ProductAPIController::class, 'index'])->name('product.index');
 
-Route::post('/product', [ProductAPIController::class, 'store'])->name('product.store');
+Route::post('product', [ProductAPIController::class, 'store'])->name('product.store');
 
-Route::get('/product/{user_id}', [ProductAPIController::class, 'show'])->name('product.show');
+Route::get('product/{product}', [ProductAPIController::class, 'show'])->name('product.show');
 
-Route::put('/product/{id}', [ProductAPIController::class, 'update'])->name('product.update');
+Route::put('product/edit/{product}', [ProductAPIController::class, 'update'])->name('product.update');
 
-Route::delete('/product/{id}', [ProductAPIController::class, 'destroy'])->name('product.delete');
+Route::delete('product/{product}', [ProductAPIController::class, 'destroy'])->name('product.delete');
 
 

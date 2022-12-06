@@ -20,6 +20,8 @@ use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 use App\Models\Product;
 
+use App\Models\Order;
+
 class ProductAPIController extends Controller
 {
     /**
@@ -29,8 +31,8 @@ class ProductAPIController extends Controller
      */
     public function index()
     {
-        // membuat metode get
-        $product = DB::table('products')->select('*')->orderBy('id', 'ASC')->paginate(10);
+        // get all product data
+        $product = Product::select('*')->orderBy('id', 'ASC')->get();
         $response = [
             'message' => 'Product Data',
             'data' => $product,
@@ -46,12 +48,14 @@ class ProductAPIController extends Controller
      */
     public function store(Request $request)
     {
-        // membuat metode post
+        // create product data and store it to database
         $validator = Validator::make($request->all(), [
+            'user_id' => ['required'],
             'name' => ['required'],
             'description' => ['required'],
             'image' => ['required'],
             'price' => ['required'],
+            'quantity' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -82,7 +86,8 @@ class ProductAPIController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
+        // showing product by user id
         $product = Product::with('users')->find($id);
         return response()->json($product, 200);
     }
@@ -96,13 +101,36 @@ class ProductAPIController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // membuat metode put
+        // changing product data by id
         $product = Product::find($id);
-        $product->update($request->all());
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'image' => ['required', 'string' ,'max:255'],
+            'price' => ['required'],
+            'quantity' => ['required', 'integer', 'min:1'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $validator->errors(), HttpFoundationResponse::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        $update_product = $product->update($request->all());
+
+        if ($update_product) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully Updated!',
+                'data' => $product,
+            ]);
+        }
+
         return response()->json([
-            'success' => true,
-            'message' => 'Successfully Updated!',
-            'data' => $product,
+            'success' => false,
+            'message' => 'Failed Updated!',
+            'data' => null,
         ]);
     }
 
@@ -114,7 +142,7 @@ class ProductAPIController extends Controller
      */
     public function destroy($id)
     {
-        // membuat metode DELETE
+        // delete product data by id
         $product = Product::find($id)->delete();
         return response()->json([
             'success' => true,
