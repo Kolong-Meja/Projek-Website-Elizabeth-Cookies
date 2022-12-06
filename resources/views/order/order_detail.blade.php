@@ -4,6 +4,10 @@
     @include('includes.head')
 </head>
 <body>
-   <h2>Test123</h2>
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            <p>{{ session()->get('success') }}</p>
+        </div>
+    @endif
 </body>
 </html>

@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
+use App\Http\Controllers\Auth\RegisteredUserController;
+
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\ProfileController;
@@ -16,12 +22,6 @@ use App\Http\Controllers\AboutController;
 
 use App\Http\Controllers\OrderController;
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-
-use App\Http\Controllers\Auth\RegisteredUserController;
-
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,40 +33,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-# route test page
-// Route::get('/user', [TestController::class, 'show_data']);
+# Route for Order (User)
+Route::get('order', [OrderController::class, 'index'])->name('order.index');
+Route::get('order/create/{product}', [OrderController::class, 'create'])->name('order.create');
+Route::post('order', [OrderController::class, 'store'])->name('order.store');
+Route::get('order/{order}', [OrderController::class, 'show'])->name('order.show');
 
-# admin page route
-Route::get('admin', [AdminController::class, 'index']);
+# Route for Home (User)
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-# home page route
-Route::get('/', [HomeController::class, 'index']);
-
-# route login page
+# Route for Login account
 Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
-
-# rote post login page
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
-# route register page
+# Route for Register account
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
-
-# route post register page
 Route::post('register', [RegisteredUserController::class, 'store']);
 
-# route logout
+# Route for Logout account
 Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-# product page route
+# Route for Product
 Route::resource('product', ProductController::class);
 
-# contact page route
-Route::get('contact', [ContactController::class, 'index']);
+# Route for Contact
+Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 
-# about page route
-Route::get('about', [AboutController::class, 'index']);
+# Route for About
+Route::get('about', [AboutController::class, 'index'])->name('about.index');
 
-# profile page route
+# Route for Profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -85,5 +81,7 @@ require __DIR__.'/auth.php';
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+// Route::get('/user', [TestController::class, 'show_data']);
+// Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
 
 

@@ -4,7 +4,7 @@
             <div class="card border-0 shadow rounded">
                 <div class="card-body">
                     <a href="{{ route('product.create') }}" class="btn btn-md btn-success mb-3">Create New Product</a>
-                    <a href="{{ url('/') }}" class="btn btn-md btn-success mb-3">Back To Home</a>
+                    <a href="{{ route('home.index') }}" class="btn btn-md btn-success mb-3">Back To Home</a>
                     <table class="table table-bordered">
                         <thead>
                           <tr>

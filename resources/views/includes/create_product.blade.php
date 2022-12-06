@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card border-0 shadow rounded">
                 <div class="card-body">
-                    <a href="{{ url('/') }}" class="btn btn-md btn-success mb-3">Back To Home</a>
+                    <a href="{{ route('home.index') }}" class="btn btn-md btn-success mb-3">Back To Home</a>
                     <a href="{{ route('product.index') }}" class="btn btn-md btn-success mb-3">Product</a>
                     <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                     

@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductAPIController;
 
-use App\Models\User;
-
-use App\Models\Product;
-
-use App\Models\Order;
+use App\Http\Controllers\OrderAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,26 +23,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/product', [ProductAPIController::class, 'index']);
+# Relasi antar Tabel database dengan JSON
+Route::get('order', [OrderAPIController::class, 'index'])->name('order.index');
 
-Route::post('/product', [ProductAPIController::class, 'store']);
+Route::post('order', [OrderAPIController::class, 'store'])->name('order.store');
 
-Route::put('/product/{id}', [ProductAPIController::class, 'update']);
+Route::get('order/{user_id}', [OrderAPIController::class, 'show'])->name('order.show');
 
-Route::delete('/product/{id}', [ProductAPIController::class, 'destroy']);
+Route::get('/product', [ProductAPIController::class, 'index'])->name('product.index');
 
-# testing relasi antar tabel dengan JSON
-Route::get('user/{user}', function ($id) {
-    $user = User::with('products')->find($id);
-    return response()->json($user, 200);
-});
+Route::post('/product', [ProductAPIController::class, 'store'])->name('product.store');
 
-Route::get('product/{product}', function ($id) {
-    $product = Product::with('users')->find($id);
-    return response()->json($product, 200);
-});
+Route::get('/product/{user_id}', [ProductAPIController::class, 'show'])->name('product.show');
 
-Route::get('order/{order}', function ($id) {
-    $order = Order::with('products')->find($id);
-    return response()->json($order, 200);
-});
+Route::put('/product/{id}', [ProductAPIController::class, 'update'])->name('product.update');
+
+Route::delete('/product/{id}', [ProductAPIController::class, 'destroy'])->name('product.delete');
+
+

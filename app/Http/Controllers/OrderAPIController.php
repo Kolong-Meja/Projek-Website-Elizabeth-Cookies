@@ -4,23 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\DB;
-
-use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Support\Facades\Storage;
-
-use Facade\FlareClient\Http\Response;
-
-use Illuminate\Database\QueryException;
-
 use Illuminate\Support\Facades\Validator;
 
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
-use App\Models\Product;
+use App\Models\Order;
 
-class ProductAPIController extends Controller
+class OrderAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,13 +18,13 @@ class ProductAPIController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        // membuat metode get
-        $product = DB::table('products')->select('*')->orderBy('id', 'ASC')->paginate(10);
+    {   
+        $order = Order::with('products')->get();
         $response = [
-            'message' => 'Product Data',
-            'data' => $product,
+            'message' => 'Order Data',
+            'data' => $order,
         ];
+
         return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
 
@@ -46,12 +36,14 @@ class ProductAPIController extends Controller
      */
     public function store(Request $request)
     {
-        // membuat metode post
-        $validator = Validator::make($request->all(), [
-            'name' => ['required'],
-            'description' => ['required'],
-            'image' => ['required'],
-            'price' => ['required'],
+         // membuat metode post
+         $validator = Validator::make($request->all(), [
+            'user_id' => ['required', 'integer', 'min:1'],
+            'product_id' => ['required', 'integer', 'min:1'],
+            'user_name' => ['required', 'string' ,'max:255'],
+            'user_email' => ['required', 'string', 'max:255'],
+            'user_mobile' => ['required', 'numeric', 'size:13'],
+            'quantity' => ['required', 'integer', 'min:1'],
         ]);
 
         if ($validator->fails()) {
@@ -61,10 +53,10 @@ class ProductAPIController extends Controller
         }
 
         try {
-            $product = Product::create($request->all());
+            $order = Order::create($request->all());
             $response = [
                 'message' => 'Saved Successfully!',
-                'data' => $product,
+                'data' => $order,
             ];
 
             return response()->json($response, HttpFoundationResponse::HTTP_CREATED);
@@ -83,43 +75,35 @@ class ProductAPIController extends Controller
      */
     public function show($id)
     {
-        $product = Product::with('users')->find($id);
-        return response()->json($product, 200);
+        $user_order = Order::with('users')->get();
+        $response = [
+            'message' => 'User Order Data',
+            'data' => $user_order,
+        ];
+
+        return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        // membuat metode put
-        $product = Product::find($id);
-        $product->update($request->all());
-        return response()->json([
-            'success' => true,
-            'message' => 'Successfully Updated!',
-            'data' => $product,
-        ]);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  mixed  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // membuat metode DELETE
-        $product = Product::find($id)->delete();
-        return response()->json([
-            'success' => true,
-            'message' => 'Successfully Deleted!',
-            'data' => $product,
-        ]);
+        //
     }
 }

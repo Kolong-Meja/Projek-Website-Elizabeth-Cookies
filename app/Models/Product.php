@@ -22,6 +22,10 @@ class Product extends Model
         'quantity',
     ];
 
+    public function products() {
+        
+    }
+
     public function users() {
         return $this->belongsTo(User::class, 'user_id');
     }

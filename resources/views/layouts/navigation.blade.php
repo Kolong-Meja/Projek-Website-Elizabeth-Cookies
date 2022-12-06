@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href={{ url('/') }}>
+                    <a href={{ route('home.index') }}>
                         <img src={{ url('image/Logo.png')}} alt="Logo Website" class="block h-9 w-auto fill-current"/>
                         {{-- <x-application-logo class=" text-gray-800 dark:text-gray-200" /> --}}
                     </a>
@@ -15,26 +15,26 @@
                 @if (Auth::id() == 1)
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="url('/')">
+                    <x-nav-link :href="route('home.index')">
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="url('/profile')">
+                    <x-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-nav-link>
                 </div>
                 
                 @else 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="url('/')">
+                    <x-nav-link :href="route('home.index')">
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="url('/profile')">
+                    <x-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-nav-link>
                 </div>

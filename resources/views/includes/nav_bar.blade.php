@@ -2,23 +2,23 @@
 <nav class="navbar navbar-expand-sm bg-black">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="" href="{{ url('/') }}">
+        <a class="" href="{{ route('home.index') }}">
             <img class="img-fluid" src="image/Logo.png" alt="Logo" width="63" height="54">
         </a>
-        <a class="Fontlogo" href="{{ url('/product') }}">Elisabeth Cookies</a>
+        <a class="Fontlogo" href="{{ route('product.index') }}">Elisabeth Cookies</a>
       <li class="Nav-edit">
         @if (Auth::guest())
             <li>
               <li>
                 <div class="btn-group-2">
-                  <a href="{{ url('login') }}">
+                  <a href="{{ route('login') }}">
                     <button type="button" class="btn btn-pink">Login</button>
                   </a>
                 </div>
               </li>
               <li>
                 <div class="btn-group-2">
-                  <a href="{{ url('register') }}">
+                  <a href="{{ route('register') }}">
                     <button type="button" class="btn btn-pink">Register</button>
                   </a>
                 </div>
@@ -27,17 +27,17 @@
         @else
             <li>
               <div class="btn-group-2">
-                <a href="{{ url('logout')}}">
+                <a href="{{ route('logout')}}">
                   <button type="button" class="btn btn-pink">Logout</button>
                 </a>
               </div>
             </li>
             <li>
               <div class="btn-group-2">
-                <a href="{{ url('profile')}}">
+                <a href="{{ route('profile.edit')}}">
                   <button type="button" class="btn btn-pink">Profile</button>
                 </a>
-                <p id="tag-name">Selamat Datang <a class="profile-link" href={{ url('profile') }}>{{ Auth::user()->name}}</a></p>
+                <p id="tag-name">Selamat Datang <a class="profile-link" href={{ route('profile.edit') }}>{{ Auth::user()->name}}</a></p>
               </div>
             </li>
         @endif
@@ -46,10 +46,11 @@
     <ul class="navbar-nav ml-auto">
       <li class="Nav-edit">
         <div class="btn-group">
-          <a href="{{ url('/') }}"> <button type="button" class="btn btn-pink">Home</button> </a>
-          <a href="{{ url('/product') }}"> <button type="button" class="btn btn-pink">Product</button> </a>
-          <a href="{{ url('/contact')}}"> <button type="button" class="btn btn-pink">Contact</button> </a>
-          <a href="{{ url('/about') }}"> <button type="button" class="btn btn-pink">About</button> </a>
+          <a href="#"> <button type="button" class="btn btn-pink">Order List</button></a>
+          <a href="{{ route('home.index') }}"> <button type="button" class="btn btn-pink">Home</button></a>
+          <a href="{{ route('product.index') }}"> <button type="button" class="btn btn-pink">Product</button></a>
+          <a href="{{ route('contact.index')}}"> <button type="button" class="btn btn-pink">Contact</button></a>
+          <a href="{{ route('about.index') }}"> <button type="button" class="btn btn-pink">About</button></a>
         </div>
       </li>
     </ul>
