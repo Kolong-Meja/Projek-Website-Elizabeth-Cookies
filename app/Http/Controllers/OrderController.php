@@ -35,11 +35,13 @@ class OrderController extends Controller
         $get_order_quantity = $get_latest_order->quantity;
         $get_product_price = $product->products->price;
         $sub_total = $get_order_quantity * $get_product_price;
+        $link = 'https://wa.me/6285693426186?text=Saya%20Pesan%20Kue';
         $compact_data = array(
             'get_latest_order' => $get_latest_order,
             'product' => $product,
             'product_price' => $get_product_price,
             'sub_total' => $sub_total,
+            'link' => $link
         );
 
         if ($user) {
@@ -57,7 +59,7 @@ class OrderController extends Controller
     public function create($product)
     {   
         $user = Auth::user();
-        $product = Product::select('name', 'quantity')->where('name', $product)->first();
+        $product = Product::select('name', 'image', 'quantity', 'price')->where('name', $product)->first();
         $products = Product::select('id', 'name')->get();
         $data_compact = array(
             'user' => $user,

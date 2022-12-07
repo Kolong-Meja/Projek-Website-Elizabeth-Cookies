@@ -34,7 +34,7 @@ use App\Http\Controllers\OrderController;
 */
 
 # Route for Order (User)
-Route::get('order', [OrderController::class, 'index'])->name('order.index');
+Route::get('order/', [OrderController::class, 'index'])->name('order.index');
 Route::get('order/create/{product}', [OrderController::class, 'create'])->name('order.create');
 Route::post('order', [OrderController::class, 'store'])->name('order.store');
 Route::get('order/{order}', [OrderController::class, 'show'])->name('order.show');

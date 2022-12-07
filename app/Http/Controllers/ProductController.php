@@ -27,8 +27,9 @@ class ProductController extends Controller
             $product = DB::table('products')->select('id','name', 'description', 'image', 'price', 'quantity')->get();
             $list_product = DB::table('products')->select('id')->get();
             $admin = Auth::id();
+            $is_login = Auth::check();
 
-            if ($admin) {
+            if ($admin == 1) {
                 return view('admin.product')->with('product', $product);
             }
             
@@ -97,10 +98,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show($slug)
+    public function show($id)
     {
         // this is for getting the product data one by one that we've store to database and show it to our website
-        $product = Product::select('name', 'description', 'image', 'price', 'quantity')->where('name', $slug)->first();
+        $product = Product::select('name', 'description', 'image', 'price', 'quantity')->where('id', $id)->first();
         $data = array('product' => $product);
         return view('product_detail', $data);
     }

@@ -4,9 +4,13 @@
             <!-- Batas Buka Kotak Box-->
             <div class="col-md-3 JarakBawahHP">
                 <div class="card h-100 CardProduct">
-                    <a href="{{ route('product.show', $p->name )}}">
+                    @if ($is_login)
+                    <a href="{{ route('product.show', $p->id )}}">
                         <img class="card-img-top" src="{{ 'image/' }}{{ $p->image }}" alt="Card image" style="width:100%">
                     </a>
+                    @else
+                    <img class="card-img-top" src="{{ 'image/' }}{{ $p->image }}" alt="Card image" style="width:100%">
+                    @endif
                     <div class="card-body">
                     <h4 class="card-title">{{ $p->name}}</h4>
                     <p class="card-text">{{ $p->description }}</p>

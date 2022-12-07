@@ -11,22 +11,28 @@
                     <div class="card border-0 shadow rounded mb-5">
                         <div class="card-body">
                             <a href="{{ route('product.index') }}" class="btn btn-md btn-success mb-3">Back To Home</a>
-                            <div class="name">
-                                <p class="font-weight-bold">{{ $product->name }}</p>
+                            
+                           <div class="row">
+                            <div class="col-md-6">
+                                <img class="card-img-top shadow rounded mb-5" src="{{ asset('image/'.$product->image) }}" alt="Card image" style="width:100%">
                             </div>
-                            <img class="card-img-top shadow rounded mb-5" src="{{ asset('image/'.$product->image) }}" alt="Card image" style="width:50%">
-                            <div class="description">
-                                <p class="font-weight-bold">Deskripsi</p>
-                                <p>{{ $product->description }}</p>
+                            <div class="col-md-6 mt-5">
+                                <div class="name">
+                                    <h2 class="font-weight-bold">{{ $product->name }}</h2>
+                                </div>
+                                <div class="description">
+                                    <p>{{ $product->description }}</p>
+                                </div>
+                                <div class="price">
+                                    <label class="font-weight-bold">Harga</label>
+                                    <p>Rp.{{ $product->price }}</p>
+                                </div>
+                                <div class="stock">
+                                    <label class="font-weight-bold">Stok</label>
+                                    <p>{{ $product->quantity }}</p>
+                                </div>
                             </div>
-                            <div class="price">
-                                <p class="font-weight-bold">Harga</p>
-                                <p>Rp.{{ $product->price }}</p>
-                            </div>
-                            <div class="stock">
-                                <p class="font-weight-bold">Stok</p>
-                                <p>{{ $product->quantity }}</p>
-                            </div>
+                           </div>
                         </div>
                     </div>
                 </div>
@@ -39,3 +45,8 @@
 
 </body>
 </html>
+
+{{-- 
+
+
+
