@@ -20,7 +20,7 @@ class OrderAPIController extends Controller
     public function index()
     {   
         # get all order data
-        $order = Order::with('products')->latest()->firstOrFail();
+        $order = Order::with('products', 'users')->get();
         $response = [
             'message' => 'Order Data',
             'data' => $order,
@@ -77,10 +77,11 @@ class OrderAPIController extends Controller
     public function show($id)
     {   
         // show order data by id
-        $product_order = Order::with('products')->find($id);
+        $product_order = Order::with('products', 'users')->get();
+        $product_name = $product_order->name->get()->find($id);
         $response = [
             'message' => 'User Order Data',
-            'data' => $product_order,
+            'data' => $product_name,
         ];
 
         return response()->json($response, HttpFoundationResponse::HTTP_OK);

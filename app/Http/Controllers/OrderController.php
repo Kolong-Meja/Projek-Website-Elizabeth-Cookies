@@ -86,9 +86,12 @@ class OrderController extends Controller
 
         $user_id = Auth::id();
         $user = Auth::user();
+        $product = Product::select('*')->get();
+        $product_name = Order::with('products')->where('name', $product);
 
         Order::create([
             'user_id' => $user_id,
+            'product_name' => $request->product_name,
             'product_id' => $request->product_id,
             'user_name' => $user->name,
             'user_email' => $user->email,
