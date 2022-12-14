@@ -20,10 +20,10 @@ class Order extends Model
     ];
 
     public function users() {
-        return $this->belongsToMany(User::class, 'user_orders');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function products() {
-        return $this->belongsToMany(Product::class, 'order_products');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

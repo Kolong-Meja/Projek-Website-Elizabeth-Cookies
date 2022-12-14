@@ -24,8 +24,11 @@ class ProductController extends Controller
 
     public function index() {
         try {
-            $product = DB::table('products')->select('id','name', 'description', 'image', 'price', 'quantity')->get();
-            $list_product = DB::table('products')->select('id')->get();
+            $product = Product::select(
+                'id','name', 'description', 
+                'image', 'price', 'quantity')
+                ->get();
+            $list_product = Product::select('id')->get();
             $admin = Auth::id();
             $is_login = Auth::check();
 
@@ -64,9 +67,9 @@ class ProductController extends Controller
         // this is for storing all product data to database
         //validate form
         $this->validate($request, [
-            'user_id' => 'required',
-            'name' => 'required|min:5',
-            'description' => 'required|min:10',
+            'user_id' => 'required|min:1|max:1',
+            'name' => 'required|string|min:5',
+            'description' => 'required|string|min:10',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required',
             'quantity' => 'required|min:1',
@@ -87,8 +90,10 @@ class ProductController extends Controller
             
         ]);
 
+        $message = "Data Berhasil Disimpan!";
+
         //redirect to index
-        return redirect()->route('product.index')->with('status', 'Data Berhasil Disimpan!');
+        return redirect()->route('product.index')->with('success', $message);
     }
 
     /**
@@ -130,9 +135,9 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $this->validate($request, [
-            'user_id' => 'required',
-            'name' => 'required|min:5',
-            'description' => 'required|min:10',
+            'user_id' => 'required|min:1|max:1',
+            'name' => 'required|string|min:5',
+            'description' => 'required|string|min:10',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required',
             'quantity' => 'required|min:1',
@@ -188,7 +193,8 @@ class ProductController extends Controller
         //delete post
         $product->delete();
 
+        $message = 'Data Berhasil Dihapus!';
         //redirect to index
-        return redirect()->route('product.index')->with('status', 'Data Berhasil Dihapus!');
+        return redirect()->route('product.index')->with('success', $message);
     }
 }

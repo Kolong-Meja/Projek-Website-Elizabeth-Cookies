@@ -4,58 +4,59 @@
    @include('includes.head')
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
+        @if (session()->has('success'))
+            <div class="alert alert-success">
+                <p>{{ session()->get('success') }}</p>
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-12">
-                <div class="card border-0 shadow rounded mb-5">
+                <div class="card border-0 shadow p-3 mb-5 bg-body rounded" style="max-width: 100%">
                     <div class="card-body">
-                        <a href="{{ route('product.index') }}" class="btn btn-md btn-success mb-3">Back To Home</a>
-                        @if (session()->has('success'))
-                            <div class="alert alert-success">
-                                <p>{{ session()->get('success') }}</p>
+                        <a href="{{ route('order.create', $product_name) }}" class="btn btn-md btn-success mb-3">Back To Order Page</a>
+                        <a href="{{ route('home.index') }}" class="btn btn-md btn-success mb-3">Back To Home Page</a>
+                        <div class="row gy-5">
+                            <div class="col-6">
+                                <label for="user_name" class="font-weight-bold">User Name</label>
+                                <p>{{ $user_name }}</p>
                             </div>
-                        @endif
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="user_name">
-                                    <label class="font-weight-bold" for="user_name">Costumer Name</label>
-                                    <p >{{ $get_latest_order->user_name }}</p>
-                                </div>
-        
-                                <div class="product_name">
-                                    <label class="font-weight-bold" for="user_name">Product Name</label>
-                                    <p>{{ $product->products->name }}</p>
-                                </div>
-        
-                                <div class="product_name">
-                                    <label class="font-weight-bold" for="user_name">Product Price</label>
-                                    <p>Rp. {{ $product_price }}</p>
-                                </div>
-                                
-                                <div class="quantity">
-                                    <label class="font-weight-bold" for="user_name">Total Product Ordered</label>
-                                    <p>{{ $get_latest_order->quantity }}</p>
-                                </div>
-        
-                                <div class="sub_total">
-                                    <label class="font-weight-bold" for="user_name">Sub Total</label>
-                                    <p>Rp. {{ $sub_total }}</p>
-                                </div>
+                            <div class="col-6">
+                                <label for="product_name" class="font-weight-bold">Product</label>
+                                <p>{{ $product_name }}</p>
                             </div>
-                            <div class="col l-5">
-                                <div class="qr_code">
-                                    {!! QrCode::size(300)->generate('https://wa.me/6285693426186?text=Saya%20Pesan%20Kue') !!}
-                                </div>
+                            <div class="col-6">
+                                <label for="user_email" class="font-weight-bold">User Email</label>
+                                <p>{{ $user_email }}</p>
                             </div>
+                            <div class="col-6">
+                                <label for="user_name" class="font-weight-bold">Product Price</label>
+                                <p>Rp. {{ $product_price }},00</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="user_mobile" class="font-weight-bold">User Mobile Phone</label>
+                                <p>{{ $user_mobile }}</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="user_mobile" class="font-weight-bold">Order Quantity</label>
+                                <p>{{ $quantity }} pcs</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="sub_total" class="font-weight-bold">Created At</label>
+                                <p>{{ $created_at }}</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="sub_total" class="font-weight-bold">Sub Total</label>
+                                <p>Rp. {{ $sub_total }},00</p>
+                            </div>
+                            {{-- <div class="col-6">
+                                {!! $qr_code !!}
+                            </div> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-    

@@ -15,16 +15,6 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {   
-        Order::create(
-        [
-            'user_id' => 2,
-            'product_id' => 1,
-            'user_name' => 'John Smith',
-            'user_email' => 'johnsmith78@gmail.com',
-            'user_mobile' => '08587766554',
-            'product_name' => 'Lidah Kucing Original',
-            'quantity' => 10,
-        ]
-    );
+        //
     }
 }

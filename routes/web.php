@@ -34,10 +34,11 @@ use App\Http\Controllers\OrderController;
 */
 
 # Route for Order (User)
-Route::get('order/', [OrderController::class, 'index'])->name('order.index');
-Route::get('order/create/{product}', [OrderController::class, 'create'])->name('order.create');
-Route::post('order', [OrderController::class, 'store'])->name('order.store');
-Route::get('order/{order}', [OrderController::class, 'show'])->name('order.show');
+Route::get('order', [OrderController::class, 'index'])->name('order.index');
+Route::get('order/export', [OrderController::class, 'export'])->name('order.export');
+Route::get('order/create/{product_name}', [OrderController::class, 'create'])->name('order.create');
+Route::post('order/{product_name}', [OrderController::class, 'store'])->name('order.store');
+Route::get('order/{order_id}', [OrderController::class, 'show'])->name('order.show');
 
 # Route for Home (User)
 Route::get('/', [HomeController::class, 'index'])->name('home.index');

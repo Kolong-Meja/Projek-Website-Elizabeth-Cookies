@@ -25,16 +25,16 @@
                                 <p>{{ $product->quantity }}</p>
                             </div>
 
-                            <form action="{{ route('order.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('order.store', $product->name) }}" method="POST" enctype="multipart/form-data">
                     
                                 @csrf
                             
                                 <div class="form-group">
                                     <label class="font-weight-bold">Input Your Name</label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}">
+                                    <input type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" value="{{ $user->name }}" readonly>
                                 
                                     <!-- error message untuk title -->
-                                    @error('name')
+                                    @error('user_name')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
@@ -42,12 +42,8 @@
                                 </div>
                             
                                 <div class="form-group">
-                                    <label class="font-weight-bold" for="exampleFormControlSelect1">Product You Want Buy</label>
-                                    <select class="form-control" name="product_id" id="exampleFormControlSelect1">
-                                        @foreach($products as $p)
-                                            <option value="{{ $p->id }}">{{ $p->name }}</option>    
-                                        @endforeach
-                                    </select>
+                                    <label class="font-weight-bold" for="product_name">Product You Want Buy</label>
+                                    <input type="text" class="form-control @error('product_name') is-invalid @enderror" name="product_name" value="{{ $product->name }}" readonly>
                                 
                                     <!-- error message untuk title -->
                                     @error('product_name')
@@ -87,7 +83,3 @@
 <script>
     CKEDITOR.replace( 'description' );
 </script>
-</body>
-</html>
-
-{{--   --}}

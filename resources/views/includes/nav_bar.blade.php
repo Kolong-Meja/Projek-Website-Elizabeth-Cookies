@@ -40,6 +40,13 @@
                 <p id="tag-name">Selamat Datang <a class="profile-link" href={{ route('profile.edit') }}>{{ Auth::user()->name}}</a></p>
               </div>
             </li>
+            {{-- <li>
+              <div class="btn-group-2">
+                <a href="{{ route('order.show', $order->id)}}">
+                  <button type="button" class="btn btn-pink">Order</button>
+                </a>
+              </div>
+            </li> --}}
         @endif
       </li>
     </ul>

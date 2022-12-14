@@ -16,6 +16,8 @@ use App\Models\Product;
 
 use App\Models\User;
 
+use QrCode;
+
 class OrderController extends Controller
 {
     /**
@@ -25,30 +27,38 @@ class OrderController extends Controller
      */
     public function index()
     {   
-        $user = Auth::user();
-        $order = Order::with('users')->where('id', $user->id)->find($user->id);
-        $get_latest_order = Order::select(
-            'product_id', 'user_name', 
-            'user_email', 'user_mobile', 
-            'quantity')->latest()->first();
-        $product = Order::with('products')->latest()->firstOrFail();
-        $get_order_quantity = $get_latest_order->quantity;
-        $get_product_price = $product->products->price;
-        $sub_total = $get_order_quantity * $get_product_price;
-        $link = 'https://wa.me/6285693426186?text=Saya%20Pesan%20Kue';
-        $compact_data = array(
-            'get_latest_order' => $get_latest_order,
-            'product' => $product,
-            'product_price' => $get_product_price,
+        $data_order = Order::select('orders.id', 'orders.user_name', 'orders.user_email', 
+        'orders.user_mobile', 'products.name', 'products.price', 'products.image', 
+        'products.description', 'orders.quantity', 'orders.created_at')
+        ->join('products', 'products.id', '=', 'orders.product_id')
+        ->latest('created_at')->first();
+        
+        $product_price = $data_order->price;
+        $order_product_quantity = $data_order->quantity;
+        $sub_total = $product_price * $order_product_quantity;
+        $logo_path = 'image/Logo.png';
+        // $qr_code = QrCode::format('png')->public_path($logo_path)->size(300)->generate();
+
+        $data_compact = array(
+            'user_name' => $data_order->user_name,
+            'user_email' => $data_order->user_email,
+            'user_mobile' => $data_order->user_mobile,
+            'product_name' => $data_order->name,
+            'product_image' => $data_order->image,
+            'product_description' => $data_order->description,
+            'product_price' => $data_order->price,
+            'quantity' => $data_order->quantity,
+            'created_at' => $data_order->created_at,
             'sub_total' => $sub_total,
-            'link' => $link
+            // 'qr_code' => $qr_code,
         );
 
-        if ($user) {
-            return view('order.order', $compact_data);
-        }
-        
-        return abort(404);
+        return view('order.order', $data_compact);
+    }
+
+    public function export()
+    {
+
     }
 
     /**
@@ -56,15 +66,17 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($product)
+    public function create($product_name)
     {   
         $user = Auth::user();
-        $product = Product::select('name', 'image', 'quantity', 'price')->where('name', $product)->first();
-        $products = Product::select('id', 'name')->get();
+        $product = Product::select(
+            'name', 'description', 
+            'image', 'price', 'quantity')
+            ->where('name', $product_name)
+            ->first();
         $data_compact = array(
             'user' => $user,
-            'product' => $product,
-            'products' => $products,
+            'product' => $product
         );
         return view('order.create', $data_compact);
     }
@@ -76,28 +88,31 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)
+    public function store(Request $request, $product)
     {   
+
         $this->validate($request, ([
-            'product_id' => 'required|integer',
-            'name' => 'required|string',
+            'product_name' => 'required|string',
+            'user_name' => 'required|string',
             'quantity' => 'required|integer|min:1',
         ]));
 
-        $user_id = Auth::id();
         $user = Auth::user();
-        
+        $product_order = Product::select('id', 'name')->where('name', $product)->first();
+
         Order::create([
-            'user_id' => $user_id,
-            'product_id' => $request->product_id,
-            'user_name' => $user->name,
+            'user_id' => $user->id,
+            'product_id' => $product_order->id,
+            'product_name' => $request->product_name,
+            'user_name' => $request->user_name,
             'user_email' => $user->email,
             'user_mobile' => $user->mobile,
             'quantity' => $request->quantity,
         ]);
 
-        $message = 'Order anda berhasil diterima oleh kami, Silahkan Scan QR code dibawah ini untuk proses pembayaran';
-        return redirect()->route('order.index')->with('success', $message);
+        $order = Order::select('id')->latest()->first();
+        $message = 'Order anda berhasil terverifikasi, Silahkan export laporan ordermu menjadi PDF serta Scan QR code dibawah ini untuk proses pembayaran dengan menyertakan PDF yang sudah dieksport';
+        return redirect()->route('order.index', $order->id)->with('success', $message);
     }
 
     /**
@@ -106,18 +121,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($order_id)
     {   
-        $user = Auth::user();
-        $guest = Auth::guest();
-
-        if ($guest) {
-            $abort_page = abort(404);
-            return $abort_page;
-        }
-        $message = 'Hello World!';
-        return view('order.order_detail')->with('message', $message);
-        // $show_order_by_user_id = Order::with('users')->where('id', $id)->findOrFail($id);
+       
     }
 
     /**
