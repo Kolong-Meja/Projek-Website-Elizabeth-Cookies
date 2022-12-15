@@ -4,6 +4,7 @@
    @include('includes.head')
 </head>
 <body>
+    <h2>Elisabeth Cookies</h2>
     <div class="container mt-5 mb-5">
         @if (session()->has('success'))
             <div class="alert alert-success">
@@ -14,9 +15,6 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow p-3 mb-5 bg-body rounded" style="max-width: 100%">
                     <div class="card-body">
-                        <a href="{{ route('order.create', $product_name) }}" class="btn btn-md btn-success mb-3">Order Page</a>
-                        <a href="{{ route('home.index') }}" class="btn btn-md btn-success mb-3">Home Page</a>
-                        <a href="{{ route('order.export') }}" class="btn btn-md btn-success mb-3" target="__blank">Download Order</a>
                         <div class="row gy-5">
                             <div class="col-6">
                                 <label for="user_name" class="font-weight-bold">User Name</label>
@@ -49,10 +47,6 @@
                             <div class="col-6">
                                 <label for="sub_total" class="font-weight-bold">Sub Total</label>
                                 <p>Rp. {{ $sub_total }},00</p>
-                            </div>
-                            <div class="col-6">
-                                <label for="sub_total" class="font-weight-bold">Contact Person</label>
-                                <p><a href="https://wa.me/6285693426186?text=Saya%20Pesan%20Lidah%20Kucing">Chat penjual disini</a></p>
                             </div>
                             {{-- <div class="col-6">
                                 {!! $qr_code !!}

@@ -18,6 +18,8 @@ use App\Models\User;
 
 use QrCode;
 
+use PDF;
+
 class OrderController extends Controller
 {
     /**
@@ -36,7 +38,7 @@ class OrderController extends Controller
         $product_price = $data_order->price;
         $order_product_quantity = $data_order->quantity;
         $sub_total = $product_price * $order_product_quantity;
-        $logo_path = 'image/Logo.png';
+        // $logo_path = 'image/Logo.png';
         // $qr_code = QrCode::format('png')->public_path($logo_path)->size(300)->generate();
 
         $data_compact = array(
@@ -58,7 +60,31 @@ class OrderController extends Controller
 
     public function export()
     {
+        $data_order = Order::select('orders.id', 'orders.user_name', 'orders.user_email', 
+        'orders.user_mobile', 'products.name', 'products.price', 'products.image', 
+        'products.description', 'orders.quantity', 'orders.created_at')
+        ->join('products', 'products.id', '=', 'orders.product_id')
+        ->latest('created_at')->first();
 
+         
+        $product_price = $data_order->price;
+        $order_product_quantity = $data_order->quantity;
+        $sub_total = $product_price * $order_product_quantity;
+
+        $export_pdf = PDF::loadview('order.order_pdf', [
+            'user_name' => $data_order->user_name,
+            'user_email' => $data_order->user_email,
+            'user_mobile' => $data_order->user_mobile,
+            'product_name' => $data_order->name,
+            'product_image' => $data_order->image,
+            'product_description' => $data_order->description,
+            'product_price' => $data_order->price,
+            'quantity' => $data_order->quantity,
+            'created_at' => $data_order->created_at,
+            'sub_total' => $sub_total,
+        ])->setOptions(['defaultFont' => 'sans-serif']);;
+
+        return $export_pdf->download('laporan-order-pdf');
     }
 
     /**
@@ -111,7 +137,7 @@ class OrderController extends Controller
         ]);
 
         $order = Order::select('id')->latest()->first();
-        $message = 'Order anda berhasil terverifikasi, Silahkan export laporan ordermu menjadi PDF serta Scan QR code dibawah ini untuk proses pembayaran dengan menyertakan PDF yang sudah dieksport';
+        $message = 'Order anda berhasil terverifikasi, Silahkan download receipt untuk bukti order, lalu hubungi penjual';
         return redirect()->route('order.index', $order->id)->with('success', $message);
     }
 
