@@ -21,36 +21,33 @@
                                 <p>{{ $user_name }}</p>
                             </div>
                             <div class="col-6">
-                                <label for="product_name" class="font-weight-bold">Product</label>
-                                <p>{{ $product_name }}</p>
-                            </div>
-                            <div class="col-6">
                                 <label for="user_email" class="font-weight-bold">User Email</label>
                                 <p>{{ $user_email }}</p>
-                            </div>
-                            <div class="col-6">
-                                <label for="user_name" class="font-weight-bold">Product Price</label>
-                                <p>Rp. {{ $product_price }},00</p>
                             </div>
                             <div class="col-6">
                                 <label for="user_mobile" class="font-weight-bold">User Mobile Phone</label>
                                 <p>{{ $user_mobile }}</p>
                             </div>
                             <div class="col-6">
-                                <label for="user_mobile" class="font-weight-bold">Order Quantity</label>
-                                <p>{{ $quantity }} pcs</p>
+                                <label for="product_name" class="font-weight-bold">Product</label>
+                                <p>{{ $product_name }}</p>
                             </div>
                             <div class="col-6">
-                                <label for="sub_total" class="font-weight-bold">Created At</label>
-                                <p>{{ $created_at }}</p>
+                                <label for="product_price" class="font-weight-bold">Product Price</label>
+                                <p>Rp. {{ $product_price }},00</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="order_quantity" class="font-weight-bold">Order Quantity</label>
+                                <p>{{ $quantity }} pcs</p>
                             </div>
                             <div class="col-6">
                                 <label for="sub_total" class="font-weight-bold">Sub Total</label>
                                 <p>Rp. {{ $sub_total }},00</p>
                             </div>
-                            {{-- <div class="col-6">
-                                {!! $qr_code !!}
-                            </div> --}}
+                            <div class="col-6">
+                                <label for="created_at" class="font-weight-bold">Created At</label>
+                                <p>{{ $created_at }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
