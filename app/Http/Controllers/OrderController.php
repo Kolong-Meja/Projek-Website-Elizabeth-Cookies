@@ -150,12 +150,19 @@ class OrderController extends Controller
     public function show($id)
     {   
         $max_data = 10;
-        $order = Order::select('orders.user_id', 'orders.product_id', 'orders.product_name', 'orders.quantity','orders.created_at')
+
+        $orders = DB::table('orders')
         ->join('users', 'users.id', '=', 'orders.user_id')
-        ->where('user_id', $id)
-        ->latest('created_at')->take($max_data)->get();
-        // $order = Order::select()->where('user_id', $id)->take(5)->get();
-        return view('order.list_order')->with('order', $order);
+        ->join('products', 'products.id', '=', 'orders.product_id')
+        ->select(
+            'users.id', 'users.name', 'users.email',
+            'orders.quantity', 'orders.created_at', 
+            'products.name as product_name', 'products.image as product_image', 
+            'products.price as product_price'
+            )->where('orders.user_id', $id)
+            ->latest('created_at')->take($max_data)->get();
+        
+        return view('order.list_order')->with('orders', $orders);
     }
 
     /**
