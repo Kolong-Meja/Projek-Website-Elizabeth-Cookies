@@ -34,10 +34,17 @@
             </li>
             <li>
               <div class="btn-group-2">
+                <a href="{{ route('order.show', Auth::id() )}}">
+                  <button type="button" class="btn btn-pink">Order List</button>
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="btn-group-2">
                 <a href="{{ route('profile.edit')}}">
                   <button type="button" class="btn btn-pink">Profile</button>
                 </a>
-                <p id="tag-name">Selamat Datang <a class="profile-link" href={{ route('profile.edit') }}>{{ Auth::user()->name}}</a></p>
+                {{-- <p id="tag-name">Selamat Datang <a class="profile-link" href={{ route('profile.edit') }}>{{ Auth::user()->name}}</a></p> --}}
               </div>
             </li>
             {{-- <li>

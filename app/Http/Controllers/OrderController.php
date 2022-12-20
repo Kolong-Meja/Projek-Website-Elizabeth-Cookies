@@ -147,9 +147,15 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($order_id)
+    public function show($id)
     {   
-       
+        $max_data = 10;
+        $order = Order::select('orders.user_id', 'orders.product_id', 'orders.product_name', 'orders.quantity','orders.created_at')
+        ->join('users', 'users.id', '=', 'orders.user_id')
+        ->where('user_id', $id)
+        ->latest('created_at')->take($max_data)->get();
+        // $order = Order::select()->where('user_id', $id)->take(5)->get();
+        return view('order.list_order')->with('order', $order);
     }
 
     /**
